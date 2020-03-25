@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # my_cchhatat
 
 > A Vue.js project
@@ -19,3 +20,9 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+=======
+# MyGraduation.project
+myproject
+npm install
+npm run dev
+>>>>>>> 56f440ddabf73e2229a7383fa96c656872addbd3
