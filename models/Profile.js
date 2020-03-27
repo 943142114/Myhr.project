@@ -1,18 +1,20 @@
 var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/Hrdata', {
+    useNewUrlParser: true
+})
 var Schema = mongoose.Schema;
 
-// Create Schema
 var ProfileSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
     },
     staffnumber:{
-        type:Number,
-        required:true
+        type:Number
     },
     staffname:{
         type:String
+
     },
     staffsex:{
         type:String
@@ -67,7 +69,11 @@ var ProfileSchema = new Schema({
     },
     workertime:{
         type:String
+    },
+    jiangjin:{
+        type:Number
     }
 });
+
 
 module.exports = Profile = mongoose.model('profile', ProfileSchema);

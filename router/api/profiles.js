@@ -10,19 +10,13 @@ router.get('/test', (req, res) => {
     res.json({msg: 'profile works'});
 });
 
+
 //增API
 // @route  post api/profiles/add
 // @desc   创建信息接口
 // @access 私密的
 router.post('/add', passport.authenticate("jwt", {session: false}), (req, res) => {
     var profilefields = {}
-
-    // if (req.body.type) profilefields.type = req.body.type;
-    // if (req.body.describe) profilefields.describe = req.body.describe;
-    // if (req.body.incode) profilefields.incode = req.body.incode;
-    // if (req.body.expend) profilefields.expend = req.body.expend;
-    // if (req.body.cash) profilefields.cash = req.body.cash;
-    // if (req.body.remark) profilefields.remark = req.body.remark;
 
     if (req.body.staffnumber) profilefields.staffnumber = req.body.staffnumber;
     if(req.body.staffname) profilefields.staffname = req.body.staffname;
@@ -45,6 +39,8 @@ router.post('/add', passport.authenticate("jwt", {session: false}), (req, res) =
     if (req.body.department) profilefields.department = req.body.department;
     if (req.body.formofemployment) profilefields.formofemployment = req.body.formofemployment;
 
+
+    if (req.body.jiangjin) profilefields.jiangjin = req.body.jiangjin;
 
 
     new Profile(profilefields).save().then(profile =>{
@@ -90,12 +86,6 @@ router.get('/:id', passport.authenticate("jwt", {session: false}), (req, res) =>
 router.post('/edit/:id', passport.authenticate("jwt", {session: false}), (req, res) => {
     var profilefields = {}
 
-    // if (req.body.type) profilefields.type = req.body.type;
-    // if (req.body.describe) profilefields.describe = req.body.describe;
-    // if (req.body.incode) profilefields.incode = req.body.incode;
-    // if (req.body.expend) profilefields.expend = req.body.expend;
-    // if (req.body.cash) profilefields.cash = req.body.cash;
-    // if (req.body.remark) profilefields.remark = req.body.remark;
 
     if (req.body.staffnumber) profilefields.staffnumber = req.body.staffnumber;
     if(req.body.staffname) profilefields.staffname = req.body.staffname;
@@ -117,6 +107,11 @@ router.post('/edit/:id', passport.authenticate("jwt", {session: false}), (req, r
     if (req.body.workertime) profilefields.workertime = req.body.workertime;
     if (req.body.department) profilefields.department = req.body.department;
     if (req.body.formofemployment) profilefields.formofemployment = req.body.formofemployment;
+    if (req.body.jiangjin) profilefields.jiangjin = req.body.jiangjin;
+
+
+
+
 
     Profile.findOneAndUpdate({_id:req.params.id},{$set:profilefields},{new:true}).then(profile => res.json(profile))
 

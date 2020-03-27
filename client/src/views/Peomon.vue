@@ -1,111 +1,96 @@
 <template>
-
+    <!--    高级资料-->
     <div class="fillcontain ">
         <div>
-            <el-from :inline="true" ref="add_data" class="elfrom1">
-                <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;margin-left: 10px;" clearable></el-input>
-                <el-for-item class="btnleft">
-                    <el-button type="primary" size="big" icon="search" @click="handleSearchname()">
-                        姓名筛选
-                    </el-button>
-                </el-for-item>
+            <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;margin-left: 10px;" clearable></el-input>
+            <el-for-item class="btnleft">
+                <el-button type="primary" size="big" icon="search" @click="handleSearchname()">
+                    姓名筛选
+                </el-button>
+            </el-for-item>
 
 
-                <el-for-item class="btnRight">
-                    <el-button type="primary" size="big" icon="view" v-if="user.identity=='admin'&&'manager'" @click="handleAdd()">
-                            添加
-                    </el-button>
-                </el-for-item>
+            <el-for-item class="btnRight">
+                <el-button type="primary" size="big" icon="view" v-if="user.identity=='admin'&&'manager'" @click="handleAdd()">
+                    添加
+                </el-button>
+            </el-for-item>
             </el-from>
         </div>
-
-<!--        基本资料-->
         <div class="table_container">
             <div class="kongbai"></div>
-    <el-table
-            v-if="tableData.length > 0"
-            :data="tableData"
-            max-height="450"
-            border
-            style="width: 100%">
-        <el-table-column
-                type="index"
-                label="序号"
-                align="center"
-                width="70">
-        </el-table-column>
-        <el-table-column
-                prop="date"
-                label="创建日期"
-                align="center"
-                width="250">
-            <template slot-scope="scope">
-                <i class="el-icon-time"></i>
-                <span style="margin-left: 10px">{{ scope.row.date }}</span>
-            </template>
-        </el-table-column>
-        <el-table-column
-                prop="staffnumber"
-                label="员工编号"
-                align="center"
-                width="200">
-        </el-table-column>
-        <el-table-column
-                prop="staffname"
-                label="员工姓名"
-                align="center"
-                width="200">
-        </el-table-column>
-        <el-table-column
-                prop="staffsex"
-                label="性别"
-                align="center"
-                width="200">
-        </el-table-column>
-        <el-table-column
-                prop="nation"
-                label="民族"
-                align="center"
-                width="200">
-        </el-table-column>
-        <el-table-column
-                prop="staffBirthday"
-                label="出生日期"
-                align="center"
-                width="200">
-        </el-table-column>
-        <el-table-column
-                prop="phonenumber"
-                label="联系电话"
-                align="center"
-                width="200">
-        </el-table-column>
+            <el-table
+                    v-if="tableData.length > 0"
+                    :data="tableData"
+                    max-height="450"
+                    border
+                    style="width: 100%">
+                <el-table-column
+                        type="index"
+                        label="序号"
+                        align="center"
+                        width="70">
+                </el-table-column>
 
-        <el-table-column
-                prop="operation"
-                align="center"
-                fixed="right"
-                width="200"
-                label="操作">
-            <template slot-scope="scope">
-                <el-button
-                        type="warning"
-                        size="small"
-                        icon="edit"
-                        v-if="user.identity=='admin'&&'manager'"
-                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                <el-button
-                        size="small"
-                        type="danger"
-                        icon="delete"
-                        v-if="user.identity=='admin'&&'manager'"
-                        @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-            </template>
-           </el-table-column>
+                <el-table-column
+                        prop="staffname"
+                        label="员工姓名"
+                        align="center"
+                        width="200">
+                </el-table-column>
+
+                <el-table-column
+                        prop="department"
+                        label="部门"
+                        align="center"
+                        width="200">
+                </el-table-column>
+
+                <el-table-column
+                        prop="idnumber"
+                        label="身份证号"
+                        align="center"
+                        width="200">
+                </el-table-column>
+
+                <el-table-column
+                        prop="basepay"
+                        label="基本工资"
+                        align="center"
+                        width="200">
+                </el-table-column>
+
+                <el-table-column
+                        prop="jiangjin"
+                        label="奖金提成"
+                        align="center"
+                        width="200">
+                </el-table-column>
 
 
 
-         </el-table>
+                <el-table-column
+                        prop="operation"
+                        align="center"
+                        fixed="right"
+                        width="320"
+                        label="操作">
+                    <template slot-scope="scope">
+                        <el-button
+                                type="warning"
+                                size="small"
+                                icon="edit"
+                                v-if="user.identity=='admin'&&'manager'"
+                                @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                        <el-button
+                                size="small"
+                                type="danger"
+                                icon="delete"
+                                v-if="user.identity=='admin'&&'manager'"
+                                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
 
             <!--分页-->
             <el-row>
@@ -120,22 +105,24 @@
                                 :page-size="paginations.page_size"
                                 :layout="paginations.layout"
                                 :total="paginations.total"
-                                >
+                        >
                         </el-pagination>
                     </div>
                 </el-col>
             </el-row>
 
         </div>
-        <DialogFound :dialog="dialog" :formData="formData" @update="getProfile"></DialogFound>
+        <!--        <DialogFound :dialog="dialog" :formData="formData" @update="getProfile"></DialogFound>-->
+        <PeomonDialog :dialog="dialog" :formData="formData" @update="getProfile"></PeomonDialog>
     </div>
 </template>
 
 <script>
-   import DialogFound from "../components/DialogFound";
+
+    import PeomonDialog from "../components/PeomonDialog";
 
     export default {
-        name: "FundList",
+        name: "BasicList",
         data(){
             return{
                 search_name:{
@@ -151,12 +138,11 @@
                 },
                 formData:{
                     id:'',
-                    staffnumber:'',
                     staffname:'',
-                    staffsex:'',
-                    staffBirthday:'',
-                    phonenumber:'',
-                    nation:''
+                    idnumber:'',
+                    jiangjin:'',
+                    department:'',
+                    basepay:'',
 
                 },
                 paginations:{
@@ -174,9 +160,9 @@
             }
         },
         components:{
-            DialogFound
+            PeomonDialog
         },
-        mounted() {
+        created() {
             this.getProfile();
         },
         methods:{
@@ -204,12 +190,12 @@
                 };
                 this.formData = {
                     id: row._id,
-                    staffnumber:row.staffnumber,
                     staffname:row.staffname,
-                    staffsex:row.staffsex,
-                    staffBirthday:row.staffBirthday,
-                    phonenumber:row.phonenumber,
-                    nation:row.nation
+                    jiangjin:row.jiangjin,
+                    idnumber:row.idnumber,
+                    department:row.department,
+                    basepay:row.basepay,
+
                 }
             },
 
@@ -219,7 +205,7 @@
                 this.$axios.delete(`api/profiles/delete/${row._id}`).then( res => {
                     this.$message('删除成功');
                 })
-                    this.getProfile();
+                this.getProfile();
             },
 
             //添加
@@ -231,12 +217,12 @@
                 };
                 this.formData = {
                     id: '',
-                    staffnumber:'',
                     staffname:'',
-                    staffsex:'',
-                    staffBirthday:'',
-                    phonenumber:'',
-                    nation:''
+                    idnumber:'',
+                    jiangjin:'',
+                    department:'',
+                    basepay:'',
+
                 }
             },
 
@@ -274,27 +260,6 @@
                 }
             },
 
-            // //按照时间筛选
-            // handleSearch(){
-            //     if (!this.search_data.starttime || !this.search_data.endtime){
-            //         this.$message({
-            //             type:"warning",
-            //             message:"请选择时间区间"
-            //         });
-            //         this.getProfile()
-            //         return;
-            //     }
-            //     const stime = this.search_data.starttime.getTime()
-            //     const etime = this.search_data.endtime.getTime()
-            //
-            //     this.alltabledata = this.filtertableData.filter(item =>{
-            //        let date = new Date(item.date);
-            //        let time = date.getTime();
-            //         return time >= stime && time <= etime;
-            //     })
-            //     //分页数据的调用
-            //     this.setPaginations();
-            // },
 
             //按照姓名筛选
             handleSearchname(){
@@ -342,3 +307,4 @@
         margin-bottom: 10px;
     }
 </style>
+

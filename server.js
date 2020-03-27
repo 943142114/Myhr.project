@@ -7,10 +7,12 @@ var app = express();
 // 引入users.js
 var users = require('./router/api/routers');
 var profiles = require('./router/api/profiles')
+var accounts = require('./router/api/account')
+
 
 
 // DB config
-var db = require('./config/keys').mongoURI;
+// var db = require('./config/keys').mongoURI;
 
 // 使用body-parser中间件
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -18,21 +20,25 @@ app.use(bodyParser.json());
 
 
 
-// Connect to mongodb
-mongoose
-    .connect(
-        db,
-        { useNewUrlParser: true }
-    )
-    .then(() => console.log('MongoDB Connected'))
-    .catch(err => console.log(err));
+//
+// mongoose
+//     .connect(
+//         db,
+//         { useNewUrlParser: true }
+//     )
+//     .then(() => console.log('MongoDB Connected'))
+//     .catch(err => console.log(err));
 
 //初始化passport 验证
 app.use(passport.initialize())
+
 mongoose.set('useFindAndModify', false)
 // 使用routes
 app.use('/api/users', users);
-app.use('/api/profiles',profiles)
+app.use('/api/profiles',profiles);
+app.use('/api/accounts',accounts);
+
+
 require('./config/passport')(passport)
 
 

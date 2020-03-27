@@ -1,19 +1,323 @@
 <template>
-<!--    员工账套-->
-    <p v-if="user.identity !== 'employee'">欢迎来到企业账套管理CompanyAccountSet</p>
+
+    <div class="fillcontain ">
+        <div>
+            <el-from :inline="true" ref="add_data" class="elfrom1">
+                <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;margin-left: 10px;" clearable></el-input>
+                <el-for-item class="btnleft">
+                    <el-button type="primary" size="big" icon="search" @click="handleSearchname()">
+                        姓名筛选
+                    </el-button>
+                </el-for-item>
+
+
+                <el-for-item class="btnRight">
+                    <el-button type="primary" size="big" icon="view" v-if="user.identity=='admin'&&'manager'" @click="handleAdd()">
+                        添加
+                    </el-button>
+                </el-for-item>
+            </el-from>
+        </div>
+
+        <!--        基本资料-->
+        <div class="table_container">
+            <div class="kongbai"></div>
+            <el-table
+                    v-if="tableData.length > 0"
+                    :data="tableData"
+                    max-height="450"
+                    border
+                    style="width: 100%">
+                <el-table-column
+                        type="index"
+                        label="序号"
+                        align="center"
+                        width="70">
+                </el-table-column>
+                <el-table-column
+                        prop="date"
+                        label="创建日期"
+                        align="center"
+                        width="250">
+                    <template slot-scope="scope">
+                        <i class="el-icon-time"></i>
+                        <span style="margin-left: 10px">{{ scope.row.date }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        prop="income"
+                        label="收入"
+                        align="center"
+                        width="200">
+                </el-table-column>
+                <el-table-column
+                        prop="expenditure"
+                        label="支出"
+                        align="center"
+                        width="200">
+                </el-table-column>
+                <el-table-column
+                        prop="Remarks"
+                        label="备注"
+                        align="center"
+                        width="200">
+                </el-table-column>
+
+
+                <el-table-column
+                        prop="operation"
+                        align="center"
+                        fixed="right"
+                        width="200"
+                        label="操作">
+                    <template slot-scope="scope">
+                        <el-button
+                                type="warning"
+                                size="small"
+                                icon="edit"
+                                v-if="user.identity=='admin'&&'manager'"
+                                @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                        <el-button
+                                size="small"
+                                type="danger"
+                                icon="delete"
+                                v-if="user.identity=='admin'&&'manager'"
+                                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+
+
+
+            </el-table>
+
+            <!--分页-->
+            <el-row>
+                <el-col :span="24">
+                    <div class="pagination">
+                        <el-pagination
+
+                                @size-change="handleSizeChange"
+                                @current-change="handleCurrentChange"
+                                :current-page.sync="paginations.page_index"
+                                :page-sizes="paginations.page_sizes"
+                                :page-size="paginations.page_size"
+                                :layout="paginations.layout"
+                                :total="paginations.total"
+                        >
+                        </el-pagination>
+                    </div>
+                </el-col>
+            </el-row>
+
+        </div>
+        <CompanyDialog :dialog="dialog" :formData="formData" @update="getProfile"></CompanyDialog>
+    </div>
 </template>
 
 <script>
+    import CompanyDialog from "../components/CompanyDialog";
+
     export default {
-        name: "CompanyAccountSet",
+        name: "FundList",
+        data(){
+            return{
+                search_name:{
+                    sname:''
+                },
+                filtertableData:[],
+                tableData:[],
+                alltabledata:[],
+                dialog:{
+                    show:false,
+                    title:'',
+                    option:'edit'
+                },
+                formData:{
+                    time:'',
+                    id: "",
+                    income:'',
+                    expenditure:'',
+                    Remarks:''
+
+
+                },
+                paginations:{
+                    page_index:1, //当前位于哪页
+                    total:0,//当前数据总数
+                    page_size:7,//一页显示多少条 //5
+                    page_sizes:[5,10,20],//每页显示多少条 //5,10,15
+                    layout:"total,sizes,prev,pager,next,jumper"//翻页属性
+                }
+            };
+        },
         computed:{
             user(){
                 return this.$store.getters.user;
             }
         },
+        components:{
+            CompanyDialog
+        },
+        mounted() {
+            this.getProfile();
+        },
+        methods:{
+
+            //获取表格数据
+            getProfile(){
+                this.$axios.get('/api/accounts')
+                    .then(res =>{
+                        this.alltabledata = res.data
+                        this.filtertableData = res.data
+                        //设置分页数据
+                        this.setPaginations()
+
+                    })
+                    .catch(err=>console.log(err))
+            },
+
+            //编辑
+            handleEdit(index,row){
+                //编辑
+                this.dialog = {
+                    show:true,
+                    title:"修改信息",
+                    option: 'edit'
+                };
+                this.formData = {
+                    time:row.time,
+                    id: row._id,
+                    income:row.income,
+                    expenditure:row.expenditure,
+                    Remarks:row.Remarks,
+                }
+            },
+
+            //删除
+            handleDelete(index,row){
+                //删除
+                this.$axios.delete(`api/accounts/delete/${row._id}`).then( res => {
+                    this.$message('删除成功');
+                })
+                this.getProfile();
+            },
+
+            //添加
+            handleAdd(){
+                this.dialog={
+                    show:true,
+                    title:"添加信息",
+                    option: 'add'
+                };
+                this.formData = {
+                    time:'',
+                    id: "",
+                    income:'',
+                    expenditure:'',
+                    Remarks:''
+                }
+            },
+
+            //分页
+            setPaginations(){
+                //分页属性
+                this.paginations.total = this.alltabledata.length;
+                this.paginations.page_index = 1;
+                this.paginations.page_size = 7;
+                //设置默认的分页数据
+                this.tableData = this.alltabledata.filter((item,index) =>{
+                    return index < this.paginations.page_size
+                })
+            },
+
+            //切换size
+            handleSizeChange(page_size){
+                this.paginations.page_index = 1;
+                this.paginations.page_size = page_size;
+                this.tableData = this.alltabledata.filter((item,index) =>{
+                    return index < page_size
+                })
+            },
+
+            //获取当前页
+            handleCurrentChange(page){
+                let  index = this.paginations.page_size * (page - 1);
+                let nums = this.paginations.page_size * page
+                let tables = [];
+                for (let i = index;i<nums;i++){
+                    if (this.alltabledata[i]){
+                        tables.push(this.alltabledata[i])
+                    }
+                    this.tableData = tables;
+                }
+            },
+
+            // //按照时间筛选
+            // handleSearch(){
+            //     if (!this.search_data.starttime || !this.search_data.endtime){
+            //         this.$message({
+            //             type:"warning",
+            //             message:"请选择时间区间"
+            //         });
+            //         this.getProfile()
+            //         return;
+            //     }
+            //     const stime = this.search_data.starttime.getTime()
+            //     const etime = this.search_data.endtime.getTime()
+            //
+            //     this.alltabledata = this.filtertableData.filter(item =>{
+            //        let date = new Date(item.date);
+            //        let time = date.getTime();
+            //         return time >= stime && time <= etime;
+            //     })
+            //     //分页数据的调用
+            //     this.setPaginations();
+            // },
+
+            //按照姓名筛选
+            handleSearchname(){
+                if (!this.search_name.sname){
+                    this.$message({
+                        type: 'warning',
+                        message: "请填写姓名"
+                    });
+                    this.getProfile()
+                    return;
+                }
+                const sname = this.search_name.sname
+                this.alltabledata = this.filtertableData.filter(item =>{
+                    // console.log(item)
+                    let name = item.staffname
+                    return name == sname
+                })
+                this.setPaginations();
+            }
+        }
     }
 </script>
 
 <style scoped>
-
+    .kongbai{
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+    .fillcontain {
+        width: 100%;
+        height: 100%;
+        padding: 16px;
+        box-sizing: border-box;
+    }
+    .btnRight {
+        float: right;
+        margin-bottom: 10px;
+    }
+    .pagination {
+        text-align: right;
+        margin-top: 10px;
+    }
+    .btnleft{
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
 </style>
+

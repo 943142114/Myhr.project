@@ -10,6 +10,7 @@ import FundList from "../views/FundList";
 import BasicList from "../views/BasicList";
 import SeniorList from "../views/SeniorList";
 import CompanyAccountSet from "../views/CompanyAccountSet";
+import Peomon from "../views/Peomon";
 
 
 
@@ -53,6 +54,10 @@ const routes = [
                 path:'/CompanyAccountSet',
                 name:'CompanyAccountSet',
                 component:CompanyAccountSet
+            },{
+                path:'/Peomon',
+                name:'Peomon',
+                component:Peomon
             }
         ]
     },

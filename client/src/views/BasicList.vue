@@ -1,4 +1,5 @@
 <template>
+<!--    高级资料-->
     <div class="fillcontain ">
         <div>
             <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;margin-left: 10px;" clearable></el-input>
@@ -10,7 +11,7 @@
 
 
                 <el-for-item class="btnRight">
-                    <el-button type="primary" size="big" icon="view" v-if="user.identity== 'manager'&&'admin'" @click="handleAdd()">
+                    <el-button type="primary" size="big" icon="view" v-if="user.identity=='admin'&&'manager'" @click="handleAdd()">
                         添加
                     </el-button>
                 </el-for-item>
@@ -93,13 +94,13 @@
                                 type="warning"
                                 size="small"
                                 icon="edit"
-                                v-if="user.identity == 'manager'&&'admin'"
+                                v-if="user.identity=='admin'&&'manager'"
                                 @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <el-button
                                 size="small"
                                 type="danger"
                                 icon="delete"
-                                v-if="user.identity == 'manager'&&'admin'"
+                                v-if="user.identity=='admin'&&'manager'"
                                 @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>

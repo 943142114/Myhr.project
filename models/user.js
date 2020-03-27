@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/Hrdata', {
+    useNewUrlParser: true
+})
 var Schema = mongoose.Schema;
-
+//登录信息token
 // Create Schema
 var UserSchema = new Schema({
     name: {

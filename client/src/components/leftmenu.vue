@@ -54,10 +54,10 @@
                             name:'基本资料'
                         },{
                             path:'BasicList',
-                            name:'其他资料'
+                            name:'高级资料'
                             },{
                             path:'SeniorList',
-                            name:'高级资料'
+                            name:'其他资料'
                         }]
                     },
                     {
@@ -68,7 +68,7 @@
                             path:'CompanyAccountSet',
                             name:'企业账套'
                         },{
-                            path:'zhangtao',
+                            path:'Peomon',
                             name:'员工账套'
                         },{
                             path:'zhangtao',
@@ -85,12 +85,6 @@
                         children:[{
                             path:'FundList',
                             name:'员工调动'
-                        },{
-                            path:'zhangtao',
-                            name:'员工调薪'
-                        },{
-                            path:'zhangtao',
-                            name:'员工奖惩'
                         },{
                             path:'zhangtao',
                             name:'在线聊天'

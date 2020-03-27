@@ -1,36 +1,28 @@
 <template>
-    <div class="fillcontain ">
+    <div class="fillcontain">
         <div>
-<!--            <el-from :inline="true" ref="add_data" :model="search_data" class="elfrom1">-->
-<!--                &lt;!&ndash;筛选&ndash;&gt;-->
-<!--                <el-date-picker v-model="search_data.starttime" type="datetime" start-placeholder="开始日期">-->
-<!--                </el-date-picker>-->
-<!--                &#45;&#45;-->
-<!--                <el-date-picker v-model="search_data.endtime" type="datetime" end-placeholder="结束日期">-->
-<!--                </el-date-picker>-->
-
-<!--                <el-for-item class="btnleft">-->
-<!--                                    <el-button type="primary" size="big" icon="search" @click="handleSearch()">-->
-<!--                                        筛选-->
-<!--                                    </el-button>-->
-<!--                </el-for-item>-->
-<!--                </el-from>-->
-
-
-
+        <div v-if="user.identity == 'employee'">
+            <el-button
+                    plain
+                    @click="open1"
+            >
+                您无权访问此页面
+            </el-button>
+        </div>
+            </el-input>
                     <el-input placeholder="按照部门筛选"
                               style="width: 300px;margin-left: 10px;"
                               clearable
-                              v-model="department_data.Department" >
-
+                              v-model="department_data.Department"
+                              v-if="user.identity == 'admin'&&'manager'"
+                              >
                     </el-input>
-
             <el-for-item class="btnleft">
                 <el-button type="primary"
                            size="big"
                            icon="search"
-                           @click="handleSearchDepartment()"
-                >
+                           v-if="user.identity== 'admin'&&'manager'"
+                           @click="handleSearchDepartment()">
                     部门筛选
                 </el-button>
             </el-for-item>
@@ -41,7 +33,7 @@
                 </el-for-item>
 
         </div>
-        <div class="table_container">
+        <div class="table_container" v-if="user.identity== 'admin'&&'manager'">
             <div class="kongbai"></div>
             <el-table
                     v-if="tableData.length > 0"
@@ -115,13 +107,12 @@
                                 type="warning"
                                 size="small"
                                 icon="edit"
-                                v-if="user.identity == 'manager'&&'admin'"
+                                v-if="user.identity == 'admin' && 'manager'"
                                 @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <el-button
                                 size="small"
                                 type="danger"
                                 icon="delete"
-                                v-if="user.identity == 'manager'&&'admin'"
                                 @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
@@ -220,6 +211,16 @@
 
                     })
                     .catch(err=>console.log(err))
+            },
+
+            //无权访问
+            open1() {
+                const h = this.$createElement;
+
+                this.$notify({
+                    title: '无权限',
+                    message: h('i', { style: 'color: teal'}, '联系管理员，即可查看本页内容')
+                });
             },
 
             //编辑
