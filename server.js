@@ -8,6 +8,7 @@ var app = express();
 var users = require('./router/api/routers');
 var profiles = require('./router/api/profiles')
 var accounts = require('./router/api/account')
+var monthends = require('./router/api/monthends')
 
 
 
@@ -37,6 +38,7 @@ mongoose.set('useFindAndModify', false)
 app.use('/api/users', users);
 app.use('/api/profiles',profiles);
 app.use('/api/accounts',accounts);
+app.use('/api/monthends',monthends)
 
 
 require('./config/passport')(passport)

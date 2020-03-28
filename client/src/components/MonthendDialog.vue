@@ -14,30 +14,24 @@
                         label-width="120px"
                         style="margin:10px;width:auto;"
                 >
+                    <!--            <el-form-item label=类型:">-->
+                    <!--                <el-select v-model="formData.type" placeholder="类型">-->
+                    <!--                    <el-option v-for="(formtype, index) in format_type_list" :key="index"-->
+                    <!--                               :label="formtype" :value="formtype"></el-option>-->
+                    <!--                </el-select>-->
+                    <!--            </el-form-item>-->
 
-
-
-
-                    <el-form-item prop="basepay" label="基本工资：">
-                        <el-input type="basepay" v-model="formData.basepay"></el-input>
+                    <el-form-item prop="monthendprocessing" label="月末处理事件：">
+                        <el-input type="monthendprocessing" v-model="formData.monthendprocessing"></el-input>
                     </el-form-item>
 
-                    <el-form-item prop="jiangjin" label="奖金提成：">
-                        <el-input type="jiangjin" v-model="formData.jiangjin"></el-input>
-                    </el-form-item>
-
-                    <el-form-item prop="formofemployment" label="餐补：">
-                        <el-input type="formofemployment" v-model="formData.formofemployment"></el-input>
+                    <el-form-item prop="monthendtwo" label="备注：">
+                        <el-input type="monthendtwo" v-model="formData.monthendtwo"></el-input>
                     </el-form-item>
 
 
-                    <el-form-item prop="trafficlsubsidy" label="交通补助：">
-                        <el-input type="trafficlsubsidy" v-model="formData.trafficlsubsidy"></el-input>
-                    </el-form-item>
 
-                    <el-form-item prop="accumulationfund" label="公积金：">
-                        <el-input type="accumulationfund" v-model="formData.accumulationfund"></el-input>
-                    </el-form-item>
+
 
 
                     <el-form-item class="text_right">
@@ -53,21 +47,9 @@
 
 <script>
     export default {
-        name: "PenmonDialog",
+        name: "MonthendDialog",
         data(){
             return{
-                form_rules:{
-                    basepay:[{required: true, message: "基本工资不能为空！", trigger: "blur"}
-                    ],
-                    formofemployment:[{ required:true, message: "餐补不能为空！", trigger: "blur"}
-                    ],
-                    trafficlsubsidy:[{ required:true, message: "交通补助不能为空！", trigger: "blur"}
-                    ],
-                    jiangjin:[{ message: "奖金提成不能为空！", trigger: "blur"}
-                    ],
-                    accumulationfund:[{ required: true, message: "公积金不能为空！", trigger: "blur"}
-                    ]
-                }
             };
         },
         props:{
@@ -81,7 +63,7 @@
                         // 表单数据验证完成之后，提交数据;
                         const url =
                             this.dialog.option == "add" ? "add" : `edit/${this.formData.id}`;
-                        this.$axios.post(`/api/profiles/${url}`, this.formData)
+                        this.$axios.post(`/api/monthends/${url}`, this.formData)
                             .then(res => {
                                 // 操作成功
                                 this.$message({
@@ -102,4 +84,3 @@
 <style scoped>
 
 </style>
-

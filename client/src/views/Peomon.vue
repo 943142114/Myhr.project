@@ -2,13 +2,20 @@
     <!--    高级资料-->
     <div class="fillcontain ">
         <div>
-            <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;margin-left: 10px;" clearable></el-input>
+<!--            <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;" clearable></el-input>-->
+<!--            <el-for-item class="btnleft">-->
+<!--                <el-button type="primary" size="big" icon="search" @click="handleSearchname()">-->
+<!--                    姓名筛选-->
+<!--                </el-button>-->
+<!--            </el-for-item>-->
+<!--            <br>-->
+<!--            <br>-->
+            <el-input v-model="search_department.sdepartment" placeholder="按照部门筛选" style="width: 300px;" clearable></el-input>
             <el-for-item class="btnleft">
-                <el-button type="primary" size="big" icon="search" @click="handleSearchname()">
-                    姓名筛选
+                <el-button type="primary" size="big" icon="search" @click="handleSearchdepartment()">
+                    部门筛选
                 </el-button>
             </el-for-item>
-
 
             <el-for-item class="btnRight">
                 <el-button type="primary" size="big" icon="view" v-if="user.identity=='admin'&&'manager'" @click="handleAdd()">
@@ -31,6 +38,16 @@
                         align="center"
                         width="70">
                 </el-table-column>
+                <el-table-column
+                        prop="date"
+                        label="创建日期"
+                        align="center"
+                        width="250">
+                    <template slot-scope="scope">
+                        <i class="el-icon-time"></i>
+                        <span style="margin-left: 10px">{{ scope.row.date }}</span>
+                    </template>
+                </el-table-column>
 
                 <el-table-column
                         prop="staffname"
@@ -46,12 +63,6 @@
                         width="200">
                 </el-table-column>
 
-                <el-table-column
-                        prop="idnumber"
-                        label="身份证号"
-                        align="center"
-                        width="200">
-                </el-table-column>
 
                 <el-table-column
                         prop="basepay"
@@ -63,6 +74,27 @@
                 <el-table-column
                         prop="jiangjin"
                         label="奖金提成"
+                        align="center"
+                        width="200">
+                </el-table-column>
+
+                <el-table-column
+                        prop="formofemployment"
+                        label="餐补"
+                        align="center"
+                        width="200">
+                </el-table-column>
+
+                <el-table-column
+                        prop="trafficlsubsidy"
+                        label="交通补助"
+                        align="center"
+                        width="200">
+                </el-table-column>
+
+                <el-table-column
+                        prop="accumulationfund"
+                        label="公积金"
                         align="center"
                         width="200">
                 </el-table-column>
@@ -128,6 +160,9 @@
                 search_name:{
                     sname:''
                 },
+                search_department:{
+                    sdepartment:''
+                },
                 filtertableData:[],
                 tableData:[],
                 alltabledata:[],
@@ -143,6 +178,9 @@
                     jiangjin:'',
                     department:'',
                     basepay:'',
+                    formofemployment:'',
+                    trafficlsubsidy:'',
+                    accumulationfund:''
 
                 },
                 paginations:{
@@ -195,7 +233,9 @@
                     idnumber:row.idnumber,
                     department:row.department,
                     basepay:row.basepay,
-
+                    formofemployment:row.formofemployment,
+                    trafficlsubsidy:row.trafficlsubsidy,
+                    accumulationfund:row.accumulationfund
                 }
             },
 
@@ -222,6 +262,9 @@
                     jiangjin:'',
                     department:'',
                     basepay:'',
+                    formofemployment:'',
+                    trafficlsubsidy:'',
+                    accumulationfund:''
 
                 }
             },
@@ -278,7 +321,26 @@
                     return name == sname
                 })
                 this.setPaginations();
+            },
+
+            handleSearchdepartment(){
+                if (!this.search_department.sdepartment){
+                    this.$message({
+                        type: 'warning',
+                        message: "请填写部门"
+                    });
+                    this.getProfile()
+                    return;
+                }
+                const sdepartment = this.search_department.sdepartment
+                this.alltabledata = this.filtertableData.filter(item =>{
+                    // console.log(item)
+                    let department = item.department
+                    return department == sdepartment
+                })
+                this.setPaginations();
             }
+
         }
     }
 </script>

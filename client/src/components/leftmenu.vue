@@ -71,10 +71,7 @@
                             path:'Peomon',
                             name:'员工账套'
                         },{
-                            path:'zhangtao',
-                            name:'员工积分'
-                        },{
-                            path:'zhangtao',
+                            path:'Monthend',
                             name:'月末处理'
                             }]
                     },
@@ -83,9 +80,6 @@
                         name:'人事管理',
                         path:'vhr',
                         children:[{
-                            path:'FundList',
-                            name:'员工调动'
-                        },{
                             path:'zhangtao',
                             name:'在线聊天'
                         },{

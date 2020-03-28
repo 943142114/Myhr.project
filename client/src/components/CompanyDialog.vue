@@ -22,6 +22,14 @@
                     <!--                </el-select>-->
                     <!--            </el-form-item>-->
 
+                    <el-form-item prop="handlepeople" label="经办人：">
+                        <el-input type="handlepeople" v-model="formData.handlepeople"></el-input>
+                    </el-form-item>
+
+                    <el-form-item prop="Remarks" label="摘要：">
+                        <el-input type="Remarks" v-model="formData.Remarks"></el-input>
+                    </el-form-item>
+
                     <el-form-item prop="income" label="收入：">
                         <el-input type="income" v-model="formData.income"></el-input>
                     </el-form-item>
@@ -30,8 +38,8 @@
                         <el-input type="expenditure" v-model="formData.expenditure"></el-input>
                     </el-form-item>
 
-                    <el-form-item prop="Remarks" label="备注：">
-                        <el-input type="Remarks" v-model="formData.Remarks"></el-input>
+                    <el-form-item prop="two" label="备注：">
+                        <el-input type="two" v-model="formData.two"></el-input>
                     </el-form-item>
 
 
@@ -64,9 +72,13 @@
                 form_rules:{
                     income:[{required: true, message: "收入不能为空！", trigger: "blur"}
                     ],
+                    handlepeople:[{required: true, message: "经办人不能为空！", trigger: "blur"}
+                    ],
                     expenditure:[{required: true, message: "支出不能为空！", trigger: "blur"}
                     ],
-                    Remarks:[{required: true, message: "备注不能为空！", trigger: "blur"}
+                    Remarks:[{required: true, message: "摘要不能为空！", trigger: "blur"}
+                    ],
+                    two:[{ message: "备注不能为空！", trigger: "blur"}
                     ]
                 }
             };

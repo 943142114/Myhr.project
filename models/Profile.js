@@ -62,7 +62,7 @@ var ProfileSchema = new Schema({
         type:Number
     },
     formofemployment:{
-        type:String
+        type:Number
     },
     internshiptime:{
         type:String
@@ -71,6 +71,12 @@ var ProfileSchema = new Schema({
         type:String
     },
     jiangjin:{
+        type:Number
+    },
+    trafficlsubsidy:{
+        type:Number
+    },
+    accumulationfund:{
         type:Number
     }
 });

@@ -11,7 +11,7 @@
         </div>
             </el-input>
                     <el-input placeholder="按照部门筛选"
-                              style="width: 300px;margin-left: 10px;"
+                              style="width: 300px;"
                               clearable
                               v-model="department_data.Department"
                               v-if="user.identity == 'admin'&&'manager'"

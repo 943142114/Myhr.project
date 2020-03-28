@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var Allaccount = require('../../models/Allaccount');
+var Monthend = require('../../models/Monthend');
 
 // router.get('/test', (req, res) => {
 //     res.json(req.body.wages)
@@ -10,30 +10,30 @@ var Allaccount = require('../../models/Allaccount');
 
 router.post('/add',passport.authenticate('jwt',{session:false}),
     (req,res)=>{
-    const accountfile ={}
+        const monthendfile ={}
 
         // 日期   time                date
         // 收入   income				Number
         // 支出   expenditure			Number
         // 备注   Remarks				string
-         if (req.body.handlepeople) accountfile.handlepeople =req.body.handlepeople;
-         if (req.body.two) accountfile.two =req.body.two;
-         if (req.body.income) accountfile.income = req.body.income;
-         if (req.body.expenditure) accountfile.expenditure = req.body.expenditure;
-         if (req.body.Remarks) accountfile.Remarks = req.body.Remarks;
-         if (req.body.monthendprocessing) accountfile.monthendprocessing = req.body.monthendprocessing;
-         if (req.body.monthendtwo) accountfile.monthendtwo = req.body.monthendtwo
+        if (req.body.handlepeople) monthendfile.handlepeople =req.body.handlepeople;
+        if (req.body.two) monthendfile.two =req.body.two;
+        if (req.body.income) monthendfile.income = req.body.income;
+        if (req.body.expenditure) monthendfile.expenditure = req.body.expenditure;
+        if (req.body.Remarks) monthendfile.Remarks = req.body.Remarks;
+        if (req.body.monthendprocessing) monthendfile.monthendprocessing = req.body.monthendprocessing;
+        if (req.body.monthendtwo) monthendfile.monthendtwo = req.body.monthendtwo
 
 
-    new Allaccount(accountfile).save().then(acc =>{
-        res.json(acc)
-    })
-  }
+        new Monthend(monthendfile).save().then(acc =>{
+            res.json(acc)
+        })
+    }
 );
 
 //查找所有内容
 router.get('/', passport.authenticate("jwt", {session: false}), (req, res) => {
-    Allaccount.find()
+    Monthend.find()
         .then(acc => {
             if (!acc){
                 return res.status(404).json('没有任何内容')
@@ -48,7 +48,7 @@ router.get(
     '/:id',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
-        Allaccount.findOne({ _id: req.params.id })
+        Monthend.findOne({ _id: req.params.id })
             .then(profile => {
                 if (!profile) {
                     return res.status(404).json('没有任何内容');
@@ -64,20 +64,20 @@ router.get(
 //编辑
 router.post('/edit/:id',passport.authenticate('jwt',{session:false}),
     (req,res)=>{
-        const accountfile ={}
+        const monthendfile ={}
 
 
-        if (req.body.handlepeople) accountfile.handlepeople =req.body.handlepeople;
-        if (req.body.two) accountfile.two =req.body.two;
-        if (req.body.income) accountfile.income = req.body.income;
-        if (req.body.expenditure) accountfile.expenditure = req.body.expenditure;
-        if (req.body.Remarks) accountfile.Remarks = req.body.Remarks;
-        if (req.body.monthendprocessing) accountfile.monthendprocessing = req.body.monthendprocessing;
-        if (req.body.monthendtwo) accountfile.monthendtwo = req.body.monthendtwo
+        if (req.body.handlepeople) monthendfile.handlepeople =req.body.handlepeople;
+        if (req.body.two) monthendfile.two =req.body.two;
+        if (req.body.income) monthendfile.income = req.body.income;
+        if (req.body.expenditure) monthendfile.expenditure = req.body.expenditure;
+        if (req.body.Remarks) monthendfile.Remarks = req.body.Remarks;
+        if (req.body.monthendprocessing) monthendfile.monthendprocessing = req.body.monthendprocessing;
+        if (req.body.monthendtwo) monthendfile.monthendtwo = req.body.monthendtwo
 
-        Allaccount.findOneAndUpdate(
+        Monthend.findOneAndUpdate(
             { _id:req.params.id},
-            { $set:accountfile},
+            { $set:monthendfile},
             { new :true}
         ).then(acc => res.json(acc))
     }
@@ -86,10 +86,10 @@ router.post('/edit/:id',passport.authenticate('jwt',{session:false}),
 //删除
 router.delete('/delete/:id',passport.authenticate('jwt',{session:false}),
     (req,res)=>{
-        Allaccount.findOneAndRemove({ _id: req.params.id})
+        Monthend.findOneAndRemove({ _id: req.params.id})
             .then(acc =>{
                 acc.save().then(acc => res.json(acc));
-        })
+            })
             .catch(err => res.status(400).json('删除失败'))
     }
 );

@@ -38,9 +38,9 @@ router.post('/add', passport.authenticate("jwt", {session: false}), (req, res) =
     if (req.body.workertime) profilefields.workertime = req.body.workertime;
     if (req.body.department) profilefields.department = req.body.department;
     if (req.body.formofemployment) profilefields.formofemployment = req.body.formofemployment;
-
-
     if (req.body.jiangjin) profilefields.jiangjin = req.body.jiangjin;
+    if (req.body.trafficlsubsidy) profilefields.trafficlsubsidy = req.body.trafficlsubsidy;
+    if (req.body.accumulationfund) profilefields.accumulationfund =req.body.accumulationfund
 
 
     new Profile(profilefields).save().then(profile =>{
@@ -108,7 +108,8 @@ router.post('/edit/:id', passport.authenticate("jwt", {session: false}), (req, r
     if (req.body.department) profilefields.department = req.body.department;
     if (req.body.formofemployment) profilefields.formofemployment = req.body.formofemployment;
     if (req.body.jiangjin) profilefields.jiangjin = req.body.jiangjin;
-
+    if (req.body.trafficlsubsidy) profilefields.trafficlsubsidy = req.body.trafficlsubsidy;
+    if (req.body.accumulationfund) profilefields.accumulationfund =req.body.accumulationfund;
 
 
 
@@ -128,6 +129,7 @@ router.delete('/delete/:id', passport.authenticate("jwt", {session: false}), (re
     })
         .catch(err => res.status(404).json('删除失败！'))
 })
+
 
 
 

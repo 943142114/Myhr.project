@@ -11,6 +11,7 @@ import BasicList from "../views/BasicList";
 import SeniorList from "../views/SeniorList";
 import CompanyAccountSet from "../views/CompanyAccountSet";
 import Peomon from "../views/Peomon";
+import Monthend from "../views/Monthend";
 
 
 
@@ -58,6 +59,10 @@ const routes = [
                 path:'/Peomon',
                 name:'Peomon',
                 component:Peomon
+            },{
+                path:'/Monthend',
+                name:'Monthend',
+                component:Monthend
             }
         ]
     },

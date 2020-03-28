@@ -22,15 +22,21 @@ var AllaccountSchema = new Schema({
     Remarks:{
         type:String
     },
-    //备用字段
-    one: {
-        type:Number
+    //经办人字段
+    handlepeople: {
+        type:String
     },
+    //备注
     two:{
-        type:Number
+        type:String
     },
-    three:{
-        type:Number
+    //月末处理
+    monthendprocessing:{
+        type:String
+    },
+    //月末处理备注
+    monthendtwo:{
+        type:String
     }
 });
 

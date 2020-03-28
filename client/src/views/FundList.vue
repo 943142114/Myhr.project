@@ -3,7 +3,7 @@
     <div class="fillcontain ">
         <div>
             <el-from :inline="true" ref="add_data" class="elfrom1">
-                <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;margin-left: 10px;" clearable></el-input>
+                <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;" clearable></el-input>
                 <el-for-item class="btnleft">
                     <el-button type="primary" size="big" icon="search" @click="handleSearchname()">
                         姓名筛选

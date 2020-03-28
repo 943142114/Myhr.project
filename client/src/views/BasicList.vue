@@ -2,19 +2,17 @@
 <!--    高级资料-->
     <div class="fillcontain ">
         <div>
-            <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;margin-left: 10px;" clearable></el-input>
+            <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;" clearable></el-input>
             <el-for-item class="btnleft">
                 <el-button type="primary" size="big" icon="search" @click="handleSearchname()">
                     姓名筛选
                 </el-button>
             </el-for-item>
-
-
-                <el-for-item class="btnRight">
-                    <el-button type="primary" size="big" icon="view" v-if="user.identity=='admin'&&'manager'" @click="handleAdd()">
-                        添加
-                    </el-button>
-                </el-for-item>
+<!--                <el-for-item class="btnRight">-->
+<!--                    <el-button type="primary" size="big" icon="view" v-if="user.identity=='admin'&&'manager'" @click="handleAdd()">-->
+<!--                        添加-->
+<!--                    </el-button>-->
+<!--                </el-for-item>-->
             </el-from>
         </div>
         <div class="table_container">

@@ -1,31 +1,25 @@
 <template>
-
     <div class="fillcontain ">
         <div>
-            <el-from :inline="true" ref="add_data" class="elfrom1">
-<!--                <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width:300px;" clearable></el-input>-->
-<!--                <el-for-item class="btnleft">-->
-<!--                    <el-button type="primary" size="big" icon="search" @click="handleSearchname()">-->
-<!--                        姓名筛选-->
-<!--                    </el-button>-->
-<!--                </el-for-item>-->
-
-                <el-input v-model="search_people.speople" placeholder="按照经办人筛选" style="width:300px;" clearable></el-input>
-                <el-for-item class="btnleft">
-                    <el-button type="primary" size="big" icon="search" @click="handleSearchpeople()">
-                        经办人筛选
-                    </el-button>
-                </el-for-item>
-
-
-                <el-for-item class="btnRight">
-                    <el-button type="primary" size="big" icon="view" v-if="user.identity=='admin'&&'manager'" @click="handleAdd()">
-                        添加
-                    </el-button>
-                </el-for-item>
-            </el-from>
+            <el-form :inline="true" ref="search_data" :model="search_data">
+                <el-form-item label="">
+                    <el-date-picker v-model="search_data.startTime" type="datetime" placeholder="选择开始时间"></el-date-picker>
+                    --
+                    <el-date-picker v-model="search_data.endTime" type="datetime" placeholder="选择结束时间"></el-date-picker>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" size="big" icon="search" @click="onScreeoutMoney()">筛选</el-button>
+                </el-form-item>
+                <el-form-item class="btnRight">
+                    <el-button
+                            type="primary"
+                            size="big"
+                            icon="view"
+                            @click="onAddMoney()"
+                    >添加</el-button>
+                </el-form-item>
+            </el-form>
         </div>
-
         <!--        基本资料-->
         <div class="table_container">
             <div class="kongbai"></div>
@@ -34,7 +28,7 @@
                     :data="tableData"
                     max-height="450"
                     border
-                    style="width: 100%">
+                    style="width: 60%">
                 <el-table-column
                         type="index"
                         label="序号"
@@ -52,37 +46,17 @@
                     </template>
                 </el-table-column>
 
+
+
                 <el-table-column
-                        prop="handlepeople"
-                        label="经办人"
+                        prop="monthendprocessing"
+                        label="月末处理事件"
                         align="center"
                         width="235">
                 </el-table-column>
 
                 <el-table-column
-                        prop="Remarks"
-                        label="摘要"
-                        align="center"
-                        width="235">
-                </el-table-column>
-
-                <el-table-column
-                        prop="income"
-                        label="收入"
-                        align="center"
-                        width="235">
-                </el-table-column>
-
-
-                <el-table-column
-                        prop="expenditure"
-                        label="支出"
-                        align="center"
-                        width="235">
-                </el-table-column>
-
-                <el-table-column
-                        prop="two"
+                        prop="monthendtwo"
                         label="备注"
                         align="center"
                         width="235">
@@ -136,19 +110,23 @@
             </el-row>
 
         </div>
-        <CompanyDialog :dialog="dialog" :formData="formData" @update="getProfile"></CompanyDialog>
+        <MonthendDialog :dialog="dialog" :formData="formData" @update="getProfile"></MonthendDialog>
     </div>
 </template>
 
 <script>
-    import CompanyDialog from "../components/CompanyDialog";
 
+    import MonthendDialog from "../components/MonthendDialog";
     export default {
-        name: "FundList",
+        name: "Monthend",
         data() {
             return {
                 search_name: {
                     sname: ''
+                },
+                search_data: {
+                    startTime: "",
+                    endTime: ""
                 },
                 search_people: {
                     speople: ''
@@ -168,7 +146,9 @@
                     income: '',
                     expenditure: '',
                     Remarks: '',
-                    two: ''
+                    two: '',
+                    monthendprocessing:'',
+                    monthendtwo:''
 
 
                 },
@@ -187,16 +167,37 @@
             }
         },
         components: {
-            CompanyDialog
+            MonthendDialog
         },
         mounted() {
             this.getProfile();
         },
         methods: {
+            onScreeoutMoney() {
+                // 筛选
+                if (!this.search_data.startTime || !this.search_data.endTime) {
+                    this.$message({
+                        type: "warning",
+                        message: "请选择时间区间"
+                    });
+                    this.getProfile();
+                    return;
+                }
+                const stime = this.search_data.startTime.getTime();
+                const etime = this.search_data.endTime.getTime();
+
+                this.allTableData = this.filterTableData.filter(item => {
+                    let date = new Date(item.date);
+                    let time = date.getTime();
+                    return time >= stime && time <= etime;
+                });
+                // 分页数据
+                this.setPaginations();
+            },
 
             //获取表格数据
             getProfile() {
-                this.$axios.get('/api/accounts')
+                this.$axios.get('/api/monthends')
                     .then(res => {
                         this.alltabledata = res.data
                         this.filtertableData = res.data
@@ -222,21 +223,23 @@
                     handlepeople: row.handlepeople,
                     expenditure: row.expenditure,
                     Remarks: row.Remarks,
-                    two: row.two
+                    two: row.two,
+                    monthendprocessing:row.monthendprocessing,
+                    monthendtwo:row.monthendtwo
                 }
             },
 
             //删除
             handleDelete(index, row) {
                 //删除
-                this.$axios.delete(`api/accounts/delete/${row._id}`).then(res => {
+                this.$axios.delete(`api/monthends/delete/${row._id}`).then(res => {
                     this.$message('删除成功');
                 })
                 this.getProfile();
             },
 
             //添加
-            handleAdd() {
+            onAddMoney() {
                 this.dialog = {
                     show: true,
                     title: "添加信息",
@@ -249,7 +252,9 @@
                     expenditure: '',
                     Remarks: '',
                     handlepeople: '',
-                    two: ''
+                    two: '',
+                    monthendprocessing:'',
+                    monthendtwo:''
                 }
             },
 
@@ -321,11 +326,11 @@
         box-sizing: border-box;
     }
     .btnRight {
-        float: right;
+        margin-left: 410px;
         margin-bottom: 10px;
     }
     .pagination {
-        text-align: right;
+        margin-left: 620px;
         margin-top: 10px;
     }
     .btnleft{
