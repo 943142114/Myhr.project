@@ -13,6 +13,7 @@ import CompanyAccountSet from "../views/CompanyAccountSet";
 import Peomon from "../views/Peomon";
 import Monthend from "../views/Monthend";
 import Char from "../views/Char";
+import Setcompetence from "../views/Setcompetence";
 
 
 
@@ -68,6 +69,10 @@ const routes = [
                 path:'/Char',
                 name:'Char',
                 component:Char
+            },{
+                path:'/Setcompetence',
+                name:'Setcompetence',
+                component:Setcompetence
             }
         ]
     },

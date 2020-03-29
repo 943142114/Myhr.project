@@ -23,8 +23,8 @@ var UserSchema = new Schema({
         required:true
     },
     identity: {
-        type: String,
-        required:true
+        type: String
+        // required:true
     },
     date: {
         type: Date,

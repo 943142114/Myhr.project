@@ -113,7 +113,7 @@ res.json({
 //修改权限
 
 //接口通过！！！！！
-router.post('/competence/:id',passport.authenticate("jwt",{session:false}),(req,res)=>{
+router.post('/edit/:id',passport.authenticate("jwt",{session:false}),(req,res)=>{
     // res.json({
     //     id:req.user.id,
     //     name:req.user.name,
@@ -121,10 +121,50 @@ router.post('/competence/:id',passport.authenticate("jwt",{session:false}),(req,
     //     identity:req.user.identity
     // })
     var competences = {}
-
+    if (req.body.name) competences.name = req.body.name;
     if (req.body.identity) competences.identity = req.body.identity;
+    if (req.body.email) competences.email = req.body.email
 
-    User.findOneAndUpdate({_id:req.params.id},{$set:competences},{new:true}).then(profile => res.json(profile))
+    User.findOneAndUpdate(
+        {_id:req.params.id},
+        {$set:competences},
+        {new:true})
+        .then(profile => res.json(profile))
+})
+
+//获取表格
+router.get('/', passport.authenticate("jwt", {session: false}), (req, res) => {
+    User.find()
+        .then(profile => {
+            if (!profile){
+                return res.status(404).json('没有任何内容')
+            }
+            res.json(profile)
+        })
+        .catch(err => res.status(404).json(err))
+})
+
+//删除
+router.delete('/delete/:id', passport.authenticate("jwt", {session: false}), (req, res) => {
+    User.findOneAndRemove({_id:req.params.id}).then(profile =>{
+        profile.save().then(profile => res.json(profile))
+    })
+        .catch(err => res.status(404).json('删除失败！'))
+})
+
+
+
+//添加
+router.post('/add', passport.authenticate("jwt", {session: false}), (req, res) => {
+    var competences = {}
+
+    if (req.body.name) competences.name = req.body.name;
+    if (req.body.identity) competences.identity = req.body.identity;
+    if (req.body.email) competences.email = req.body.email
+
+    new User(competences).save().then(profile =>{
+        res.json(profile)
+    })
 })
 
 module.exports = router
