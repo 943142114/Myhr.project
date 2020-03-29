@@ -1,6 +1,13 @@
 <template>
     <!--    高级资料-->
     <div class="fillcontain ">
+
+        <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: 'home' }">工资管理</el-breadcrumb-item>
+            <el-breadcrumb-item >员工账套</el-breadcrumb-item>
+        </el-breadcrumb>
+
         <div>
 <!--            <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;" clearable></el-input>-->
 <!--            <el-for-item class="btnleft">-->

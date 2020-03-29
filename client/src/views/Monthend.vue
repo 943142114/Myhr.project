@@ -1,5 +1,11 @@
 <template>
     <div class="fillcontain ">
+
+        <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: 'home' }">工资管理</el-breadcrumb-item>
+            <el-breadcrumb-item >月末处理</el-breadcrumb-item>
+        </el-breadcrumb>
         <div>
             <el-form :inline="true" ref="search_data" :model="search_data">
                 <el-form-item label="">
@@ -20,9 +26,9 @@
                 </el-form-item>
             </el-form>
         </div>
+
         <!--        基本资料-->
         <div class="table_container">
-            <div class="kongbai"></div>
             <el-table
                     v-if="tableData.length > 0"
                     :data="tableData"
@@ -315,10 +321,6 @@
 </script>
 
 <style scoped>
-    .kongbai{
-        margin-bottom: 10px;
-        margin-top: 10px;
-    }
     .fillcontain {
         width: 100%;
         height: 100%;
@@ -327,7 +329,6 @@
     }
     .btnRight {
         margin-left: 410px;
-        margin-bottom: 10px;
     }
     .pagination {
         margin-left: 620px;
@@ -336,6 +337,9 @@
     .btnleft{
         margin-left: 10px;
         margin-bottom: 10px;
+    }
+    .table_container{
+        margin-top: -10px;
     }
 </style>
 

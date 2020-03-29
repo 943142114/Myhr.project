@@ -12,6 +12,7 @@ import SeniorList from "../views/SeniorList";
 import CompanyAccountSet from "../views/CompanyAccountSet";
 import Peomon from "../views/Peomon";
 import Monthend from "../views/Monthend";
+import Char from "../views/Char";
 
 
 
@@ -63,6 +64,10 @@ const routes = [
                 path:'/Monthend',
                 name:'Monthend',
                 component:Monthend
+            },{
+                path:'/Char',
+                name:'Char',
+                component:Char
             }
         ]
     },

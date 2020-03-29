@@ -80,7 +80,7 @@
                         name:'人事管理',
                         path:'vhr',
                         children:[{
-                            path:'zhangtao',
+                            path:'Char',
                             name:'在线聊天'
                         },{
                             path:'zhangtao',

@@ -2,7 +2,25 @@
 
     <div class="fillcontain ">
         <div>
-            <el-from :inline="true" ref="add_data" class="elfrom1">
+
+
+            <div v-if="user.identity == 'employee'">
+                <el-button
+                        plain
+                        @click="open1"
+                >
+                    您无权访问此页面
+                </el-button>
+            </div>
+
+
+            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;" v-if="user.identity == 'manger' && 'admin' ">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: 'home' }">工资管理</el-breadcrumb-item>
+                <el-breadcrumb-item >企业账套</el-breadcrumb-item>
+            </el-breadcrumb>
+
+            <el-from :inline="true" ref="add_data" class="elfrom1" v-if="user.identity == 'manger' && 'admin' ">
 <!--                <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width:300px;" clearable></el-input>-->
 <!--                <el-for-item class="btnleft">-->
 <!--                    <el-button type="primary" size="big" icon="search" @click="handleSearchname()">-->
@@ -27,7 +45,7 @@
         </div>
 
         <!--        基本资料-->
-        <div class="table_container">
+        <div class="table_container" v-if="user.identity == 'manger' && 'admin' ">
             <div class="kongbai"></div>
             <el-table
                     v-if="tableData.length > 0"
@@ -205,6 +223,16 @@
 
                     })
                     .catch(err => console.log(err))
+            },
+
+            //无权访问
+            open1() {
+                const h = this.$createElement;
+
+                this.$notify({
+                    title: '您没有权限',
+                    message: h('i', { style: 'color: teal'}, '联系管理员，即可查看本页内容')
+                });
             },
 
             //编辑

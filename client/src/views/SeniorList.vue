@@ -9,6 +9,13 @@
                 您无权访问此页面
             </el-button>
         </div>
+
+            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;" v-if="user.identity == 'manger' && 'admin' ">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: 'home' }">员工资料</el-breadcrumb-item>
+                <el-breadcrumb-item >其他资料</el-breadcrumb-item>
+            </el-breadcrumb>
+
             </el-input>
                     <el-input placeholder="按照部门筛选"
                               style="width: 300px;"
@@ -222,6 +229,8 @@
                     message: h('i', { style: 'color: teal'}, '联系管理员，即可查看本页内容')
                 });
             },
+
+
 
             //编辑
             handleEdit(index,row){

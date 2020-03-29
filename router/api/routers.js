@@ -18,6 +18,8 @@ router.get('/test', (req, res) => {
     res.json({ msg: 'login works' });
 });
 
+
+
 // @route  POST api/register
 // @desc   返回的请求的json数据
 // @access public
@@ -42,7 +44,6 @@ router.post('/register',(req,res) => {
                 bcrypt.hash(newUser.password, salt, (err, hash)=> {
                     if (err) throw err
                     newUser.password = hash
-
                     newUser.save()
                         .then(user=>res.json(user))
                         .catch(err => console.log(err))
@@ -100,7 +101,6 @@ router.post('/login',(req,res)=>{
 // @desc   return 客户信息
 // @access 私密的
 //passport 验证token
-
 router.get('/current',passport.authenticate("jwt",{session:false}),(req,res)=>{
 res.json({
     id:req.user.id,
@@ -110,5 +110,21 @@ res.json({
 })
 })
 
+//修改权限
+
+//接口通过！！！！！
+router.post('/competence/:id',passport.authenticate("jwt",{session:false}),(req,res)=>{
+    // res.json({
+    //     id:req.user.id,
+    //     name:req.user.name,
+    //     email:req.user.email,
+    //     identity:req.user.identity
+    // })
+    var competences = {}
+
+    if (req.body.identity) competences.identity = req.body.identity;
+
+    User.findOneAndUpdate({_id:req.params.id},{$set:competences},{new:true}).then(profile => res.json(profile))
+})
 
 module.exports = router

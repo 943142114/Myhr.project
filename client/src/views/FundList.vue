@@ -3,6 +3,14 @@
     <div class="fillcontain ">
         <div>
             <el-from :inline="true" ref="add_data" class="elfrom1">
+
+                <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;">
+                    <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                    <el-breadcrumb-item :to="{ path: 'home' }">员工资料</el-breadcrumb-item>
+                    <el-breadcrumb-item :to="{ path:'FundList' }">基本资料</el-breadcrumb-item>
+                </el-breadcrumb>
+
+
                 <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;" clearable></el-input>
                 <el-for-item class="btnleft">
                     <el-button type="primary" size="big" icon="search" @click="handleSearchname()">
@@ -339,6 +347,9 @@
     }
     .btnleft{
         margin-left: 10px;
+        margin-bottom: 10px;
+    }
+    .breadFundList{
         margin-bottom: 10px;
     }
 </style>
