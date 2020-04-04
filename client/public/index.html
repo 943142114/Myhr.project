@@ -15,5 +15,16 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script src="https://cdn.bootcss.com/socket.io/2.3.0/socket.io.js"></script>
+    <script type="text/javascript">
+      var socket=io.connect('http://localhost:5000');
+
+      setTimeout(function(){
+        if(socket.connected == false){
+          alert('服务器暂时关闭！');
+        }
+      },1000)
+    </script>
+
   </body>
 </html>

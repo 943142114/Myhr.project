@@ -4,12 +4,29 @@ var bodyParser = require('body-parser');
 var passport = require('passport')
 var app = express();
 
+var http = require('http');
+// 用http模块创建一个服务并把express的实例挂载上去
+var server = http.Server(app);
+// 引入socket.io并立即实例化，把server挂载上去
+var io = require('socket.io')(server);
+
 // 引入users.js
 var users = require('./router/api/routers');
 var profiles = require('./router/api/profiles')
 var accounts = require('./router/api/account')
 var monthends = require('./router/api/monthends')
 
+
+
+io.on('connection', function(socket){
+    console.log('已经连接!');
+        socket.emit('notcie','测试消息')
+    socket.on('senddata',res=>{
+        //on 获取到客户端发来的消息
+        //emit 给这消息起一个新的名字  发送到客户端
+        socket.emit('fad',res)
+    })
+});
 
 
 // DB config
@@ -46,6 +63,6 @@ require('./config/passport')(passport)
 
 var port = process.env.PORT || 5000;
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
