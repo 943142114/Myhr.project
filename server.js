@@ -21,10 +21,10 @@ var monthends = require('./router/api/monthends')
 io.on('connection', function(socket){
     console.log('已经连接!');
         socket.emit('notcie','测试消息')
+    //on 获取到客户端发来的消息
     socket.on('senddata',res=>{
-        //on 获取到客户端发来的消息
         //emit 给这消息起一个新的名字  发送到客户端
-        socket.emit('fad',res)
+        io.emit('fad',res)
     })
 });
 
