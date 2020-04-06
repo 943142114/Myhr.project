@@ -18,17 +18,28 @@ var monthends = require('./router/api/monthends')
 
 
 
+var allchat = []
 io.on('connection', function(socket){
-    console.log('已经连接!');
+    console.log(socket.id + '已经连接!');
         socket.emit('notcie','测试消息')
+    var the_id = socket.id
+
+    allchat.push(the_id)
+
+    socket.emit('onlie',{onlinenumber:allchat.length})
+
+    socket.on('uname',function (data) {
+            console.log(data.unamer)
+    })
+
+    console.log(allchat.length)
+
     //on 获取到客户端发来的消息
     socket.on('senddata',res=>{
         //emit 给这消息起一个新的名字  发送到客户端
         io.emit('fad',res)
     })
 });
-
-
 // DB config
 // var db = require('./config/keys').mongoURI;
 
