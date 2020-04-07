@@ -16,6 +16,9 @@ var profiles = require('./router/api/profiles')
 var accounts = require('./router/api/account')
 var monthends = require('./router/api/monthends')
 
+var MongoClient = require('mongodb').MongoClient;
+var url = 'mongodb://localhost/Hrdata';
+
 
 
 var allchat = []
@@ -23,23 +26,38 @@ io.on('connection', function(socket){
     console.log(socket.id + '已经连接!');
         socket.emit('notcie','测试消息')
     var the_id = socket.id
-
     allchat.push(the_id)
-
     socket.emit('onlie',{onlinenumber:allchat.length})
-
     socket.on('uname',function (data) {
             console.log(data.unamer)
     })
-
-    console.log(allchat.length)
-
     //on 获取到客户端发来的消息
     socket.on('senddata',res=>{
         //emit 给这消息起一个新的名字  发送到客户端
         io.emit('fad',res)
+        MongoClient.connect(url,{ useNewUrlParser: true },function (err,db) {
+            if (err) throw  err;
+            var dbo = db.db('Hrdata');
+            var mychatmsg = res;
+            dbo.collection('chatmsgall').insertOne(mychatmsg,function (err,res) {
+                if (err) throw  err;
+            })
+        })
+
+        MongoClient.connect(url,{ useNewUrlParser: true },function (err,db) {
+            if (err) throw  err;
+            var dbo = db.db('Hrdata');
+            var mychatmsg = res;
+            dbo.collection('chatmsgall').find({}).toArray(function (err,chathistory) {
+                if (err) throw  err;
+                io.emit('his',chathistory)
+            })
+        })
     })
 });
+
+
+
 // DB config
 // var db = require('./config/keys').mongoURI;
 

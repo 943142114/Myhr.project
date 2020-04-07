@@ -6,42 +6,36 @@
             <el-breadcrumb-item :to="{ path: 'home' }">人事管理</el-breadcrumb-item>
             <el-breadcrumb-item >在线聊天</el-breadcrumb-item>
         </el-breadcrumb>
-        <div>欢迎登录！{{user.name}}</div>
-
         <div class="chatall">
             <div class="left">
                 <img src="../assets/Chat.png" alt="" class="img1">
                 <img src="../assets/list.png" alt="" class="img2">
             </div>
-
-            <div class="center">
-                <div class="onpeople">当前在线 &nbsp;{{onliechat}}&nbsp;人</div>
-            </div>
-
+<!--            <div class="center">-->
+<!--                <div class="onpeople">当前在线 &nbsp;{{onliechat}}&nbsp;人</div>-->
+<!--            </div>-->
             <div class="right" id="msgboxright">
-                <div class="denglu"><span>{{user.name}}登录了...</span></div>
-
+                <div class="denglu"><span>{{user.name}}进入了群聊...</span></div>
+                <div class="hischatstyle" @click="hischatstyle">历史消息</div>
                 <div><ul v-for="(item,i) in msg_list" class="ul01">
                     <li class="li1">{{item.name}}({{item.timeda}})说：</li>
                     <li class="li2">{{item.msg}}</li>
                 </ul>
                 </div>
-
-
-
-<!--                <div id="xiaoxi" v-for="(item,i) in msg_list" class="xiaoxi">-->
-<!--                    <div class="user">{{item.name}}({{item.timeda}})说：</div>-->
-<!--                    <br>-->
-<!--                    <div class="msgxiaoxi" id="xiaoxi1"><span>{{item.msg}}</span></div>-->
-<!--                    -->
-<!--                </div>-->
             </div>
 
             <div class="right_bottom">
                 <textarea name="" id="" cols="30" rows="10" v-model="msg" class="inp1" placeholder="请输入内容"></textarea>
                 <button @click="sendata" class="btn01">发送</button>
             </div>
+            <div class="hs" v-show="his">
+                <ul v-for="(item,i) in chathis" class="hsul" >
+                    <li class="hsli1">{{item.name}}( {{item.timeda}} )说</li>
+                    <li class="hsli2">{{item.msg}}</li>
+                </ul>
 
+            </div>
+            <button @click="hisclose" class="hisclosestylenor" v-show="his">关闭</button>
         </div>
     </div>
 </template>
@@ -52,10 +46,13 @@
         name: "Char",
         data(){
             return{
+                his:false,
                 msg:'',
                 chatname:name,
                 fadatamsg:'',
                 msg_list:[],
+                test:[{name:'1'}],
+                chathis:[],
                 onliechat:''
             }
         },
@@ -73,7 +70,7 @@
         },
         //在挂载vue时就加载mounted,并且加载其中的socket
         mounted() {
-            var username = user.name
+
             // console.log(username)
             var box = document.getElementById('msgboxright')
             socket.on('notcie',function (iofo) {
@@ -82,11 +79,16 @@
             //我就是那个新名字  用来接收服务端发来的东西
             socket.on('fad',ms =>{
                     this.msg_list.push(ms)
-                    box.scrollTop = box.scrollHeight
+                    console.log(ms)
             }),
+                socket.on('his',ms =>{
+                    this.chathis = ms
+                    console.log(this.chathis)
+                }),
+
             socket.on('onlie',obj=> {
                 this.onliechat = obj.onlinenumber.toString()
-                console.log('当前在线' + this.onliechat + '人')
+
             })
         },
         //vue页面中使用到的方法
@@ -106,6 +108,12 @@
                     timeda:testtimedata
                 })
                 this.msg = ''
+            },
+            hisclose(){
+                this.his = false
+            },
+            hischatstyle(){
+                this.his = true
             }
 
         }
@@ -113,6 +121,47 @@
 </script>
 
 <style scoped>
+    .hisclosestylenor{
+        width: 70px;
+        height: 25px;
+        position: absolute;
+        margin-top: 530px;
+        margin-left: -70px;
+    }
+    .hischatstyle{
+        cursor: pointer;
+        color: #409eff;
+        font-weight: bold;
+        margin-left: -160px;
+        margin-top: 70px;
+    }
+    .hsul{
+        margin-left: 20px;
+        margin-top: 30px;
+    }
+    .hsli2{
+        width: 220px;
+        height: 20px;
+        background-color: rgb(159,230,90);
+        color: black;
+        line-height: 20px;
+        font-size: 16px;
+        border-radius: 100px;
+        margin-top: 5px;
+        text-indent: 1em;
+        margin-bottom: 20px;
+    }
+    .hs{
+        width: 300px;
+        height: 518px;
+        margin-left: 655px;
+        margin-top: -642px;
+        background-color: rgb(245,245,245);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow-y:scroll;
+        box-shadow: 0 0 10px 0px #999;
+    }
     .onpeople{
         font-size: 24px;
         margin-left: 50px;
@@ -124,6 +173,7 @@
     .ul01{
         margin-left: 20px;
         margin-top: 22px;
+
     }
     .li2{
         width: 200px;
@@ -135,6 +185,7 @@
         border-radius: 100px;
         margin-top: 5px;
         text-indent: 1em;
+        margin-bottom: 10px;
     }
     .fillcontain {
         width: 100%;
@@ -162,6 +213,7 @@
     .msgxiaoxi span{
         font-size: 20px;
     }
+
     .msgxiaoxi{
         width: 300px;
         height: 40px;
@@ -227,12 +279,13 @@
         margin-left: 21px;
     }
     .chatall{
-        width: 900px;
+        width: 650px;
         height: 640px;
         background-color: rgb(230,230,230);
         border-radius: 5px;
         margin: 0 auto;
         box-shadow: 0 0 10px 0px #999;
+        margin-top: 50px;
     }
     .chatall div{
         float: left;

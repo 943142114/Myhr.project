@@ -44,8 +44,8 @@
             </el-from>
         </div>
 
-        <!--        基本资料-->
-        <div class="table_container" v-if="user.identity == 'manger' && 'admin' ">
+
+        <div class="table_container" v-if="user.identity != 'employee' ">
             <div class="kongbai"></div>
             <el-table
                     v-if="tableData.length > 0"

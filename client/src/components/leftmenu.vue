@@ -53,9 +53,6 @@
                             path:'FundList',
                             name:'基本资料'
                         },{
-                            path:'BasicList',
-                            name:'高级资料'
-                            },{
                             path:'SeniorList',
                             name:'其他资料'
                         }]
@@ -83,8 +80,8 @@
                             path:'Char',
                             name:'在线聊天'
                         },{
-                            path:'zhangtao',
-                            name:'发布邮件'
+                            path:'BasicList',
+                            name:'高级资料'
                         },{
                             path:'zhangtao',
                             name:'系统消息'
