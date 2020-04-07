@@ -66,7 +66,9 @@ npm start
    
    3.[Express](https://www.expressjs.com.cn/4x/api.html)
    
-   3.[MongoDB](https://www.runoob.com/mongodb/mongodb-tutorial.html)
+   4.[MongoDB](https://www.runoob.com/mongodb/mongodb-tutorial.html)
+   
+   5.[socket.io](https://socket.io/get-started/chat/)
     
 # License
     
