@@ -60,9 +60,13 @@ npm start
     
 # 参考资料
 
-    1.[Vue.js](https://cn.vuejs.org/index.html)
-    2.[Node.js](http://nodejs.cn/api/)
-    3.[MongoDB](https://www.runoob.com/mongodb/mongodb-tutorial.html)
+   1.[Vue.js](https://cn.vuejs.org/index.html)
+   
+   2.[Node.js](http://nodejs.cn/api/)
+   
+   3.[Express](https://www.expressjs.com.cn/4x/api.html)
+   
+   3.[MongoDB](https://www.runoob.com/mongodb/mongodb-tutorial.html)
     
 # License
     
