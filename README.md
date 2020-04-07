@@ -24,9 +24,9 @@ npm start
 
     首先安装服务端依赖
     进入client文件夹内安装客户端依赖
-    回到根目录运行  nodemon server.js
-    进入到client文件夹内运行  npm start/npm run serve  
-    项目将在打包完成后自动在浏览器上运行
+    回到根目录运行  nodemon/node server.js
+    进入到client运行  npm start/npm run serve  
+    项目将在热重载完成后在浏览器上运行
     后端端口号 5000
     前端端口号 8080
     
