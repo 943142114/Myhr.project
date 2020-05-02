@@ -77,13 +77,13 @@
                         name:'人事管理',
                         path:'vhr',
                         children:[{
-                            path:'Char',
-                            name:'在线聊天'
-                        },{
                             path:'BasicList',
                             name:'高级资料'
                         },{
-                            path:'zhangtao',
+                            path:'Char',
+                            name:'在线聊天'
+                        },{
+                            path:'Systemmessages',
                             name:'系统消息'
                         }
                         ]

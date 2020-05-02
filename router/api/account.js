@@ -22,7 +22,8 @@ router.post('/add',passport.authenticate('jwt',{session:false}),
          if (req.body.expenditure) accountfile.expenditure = req.body.expenditure;
          if (req.body.Remarks) accountfile.Remarks = req.body.Remarks;
          if (req.body.monthendprocessing) accountfile.monthendprocessing = req.body.monthendprocessing;
-         if (req.body.monthendtwo) accountfile.monthendtwo = req.body.monthendtwo
+         if (req.body.monthendtwo) accountfile.monthendtwo = req.body.monthendtwo;
+         if (req.body.hrmessages) accountfile.hrmessages = req.body.hrmessages
 
 
     new Allaccount(accountfile).save().then(acc =>{
@@ -73,7 +74,8 @@ router.post('/edit/:id',passport.authenticate('jwt',{session:false}),
         if (req.body.expenditure) accountfile.expenditure = req.body.expenditure;
         if (req.body.Remarks) accountfile.Remarks = req.body.Remarks;
         if (req.body.monthendprocessing) accountfile.monthendprocessing = req.body.monthendprocessing;
-        if (req.body.monthendtwo) accountfile.monthendtwo = req.body.monthendtwo
+        if (req.body.monthendtwo) accountfile.monthendtwo = req.body.monthendtwo;
+        if (req.body.hrmessages) accountfile.hrmessages = req.body.hrmessages
 
         Allaccount.findOneAndUpdate(
             { _id:req.params.id},

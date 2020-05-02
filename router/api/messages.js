@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var Monthend = require('../../models/Monthend');
+var Message = require('../../models/Message');
 
 // router.get('/test', (req, res) => {
 //     res.json(req.body.wages)
@@ -10,14 +10,12 @@ var Monthend = require('../../models/Monthend');
 
 router.post('/add',passport.authenticate('jwt',{session:false}),
     (req,res)=>{
-        const monthendfile ={}
+        const Messagefile ={}
+
+        if (req.body.allhrmessages) Messagefile.allhrmessages = req.body.allhrmessages
 
 
-        if (req.body.monthendprocessing) monthendfile.monthendprocessing = req.body.monthendprocessing;
-        if (req.body.monthendtwo) monthendfile.monthendtwo = req.body.monthendtwo
-
-
-        new Monthend(monthendfile).save().then(acc =>{
+        new Message(Messagefile).save().then(acc =>{
             res.json(acc)
         })
     }
@@ -25,7 +23,7 @@ router.post('/add',passport.authenticate('jwt',{session:false}),
 
 //查找所有内容
 router.get('/', passport.authenticate("jwt", {session: false}), (req, res) => {
-    Monthend.find()
+    Message.find()
         .then(acc => {
             if (!acc){
                 return res.status(404).json('没有任何内容')
@@ -40,7 +38,7 @@ router.get(
     '/:id',
     passport.authenticate('jwt', { session: false }),
     (req, res) => {
-        Monthend.findOne({ _id: req.params.id })
+        Message.findOne({ _id: req.params.id })
             .then(profile => {
                 if (!profile) {
                     return res.status(404).json('没有任何内容');
@@ -56,15 +54,12 @@ router.get(
 //编辑
 router.post('/edit/:id',passport.authenticate('jwt',{session:false}),
     (req,res)=>{
-        const monthendfile ={}
+        const Messagefile ={}
 
-
-        if (req.body.monthendprocessing) monthendfile.monthendprocessing = req.body.monthendprocessing;
-        if (req.body.monthendtwo) monthendfile.monthendtwo = req.body.monthendtwo
-
-        Monthend.findOneAndUpdate(
+        if (req.body.allhrmessages) Messagefile.allhrmessages = req.body.allhrmessages
+        Message.findOneAndUpdate(
             { _id:req.params.id},
-            { $set:monthendfile},
+            { $set:Messagefile},
             { new :true}
         ).then(acc => res.json(acc))
     }
@@ -73,7 +68,7 @@ router.post('/edit/:id',passport.authenticate('jwt',{session:false}),
 //删除
 router.delete('/delete/:id',passport.authenticate('jwt',{session:false}),
     (req,res)=>{
-        Monthend.findOneAndRemove({ _id: req.params.id})
+        Message.findOneAndRemove({ _id: req.params.id})
             .then(acc =>{
                 acc.save().then(acc => res.json(acc));
             })

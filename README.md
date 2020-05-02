@@ -34,7 +34,6 @@ npm start
 
     本项目是一个前后端分离的人力资源管理系统，项目采用 Node.js + Vue + MongoDB 开发，不足之处请多多包涵。
 
-
 # 项目技术栈
 
  前端技术栈
@@ -57,7 +56,7 @@ npm start
     6.JWT
     7.passport-jwt
     
-    
+ 
 # 参考资料
 
    1.[Vue.js](https://cn.vuejs.org/index.html)

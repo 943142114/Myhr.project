@@ -10,7 +10,7 @@
             </el-button>
         </div>
 
-            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;" v-if="user.identity == 'manger' && 'admin' ">
+            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;" >
                 <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
                 <el-breadcrumb-item :to="{ path: 'home' }">员工资料</el-breadcrumb-item>
                 <el-breadcrumb-item >其他资料</el-breadcrumb-item>

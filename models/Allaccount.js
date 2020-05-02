@@ -37,6 +37,9 @@ var AllaccountSchema = new Schema({
     //月末处理备注
     monthendtwo:{
         type:String
+    },
+    hrmessages:{
+        type:String
     }
 });
 

@@ -2,6 +2,8 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var passport = require('passport')
+var log4js = require('log4js')
+var logger = log4js.getLogger();
 var app = express();
 
 var http = require('http');
@@ -15,10 +17,15 @@ var users = require('./router/api/routers');
 var profiles = require('./router/api/profiles')
 var accounts = require('./router/api/account')
 var monthends = require('./router/api/monthends')
+var messages = require('./router/api/messages')
+
 
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://localhost/Hrdata';
 
+
+logger.level = 'debug';
+logger.debug("Some debug messages");
 
 
 var allchat = []
@@ -58,11 +65,14 @@ io.on('connection', function(socket){
 
 
 
+
+
 // DB config
 // var db = require('./config/keys').mongoURI;
 
 // 使用body-parser中间件
 app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(log4js.connectLogger(log4js.getLogger("cheese"), {level: log4js.levels.INFO}));
 app.use(bodyParser.json());
 
 
@@ -85,6 +95,9 @@ app.use('/api/users', users);
 app.use('/api/profiles',profiles);
 app.use('/api/accounts',accounts);
 app.use('/api/monthends',monthends)
+app.use('/api/messages',messages)
+
+
 
 
 require('./config/passport')(passport)

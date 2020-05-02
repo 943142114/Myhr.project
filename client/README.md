@@ -24,16 +24,17 @@ npm start
 
     首先安装服务端依赖
     进入client文件夹内安装客户端依赖
-    回到根目录运行  nodemon server.js
-    进入到client文件夹内运行  npm start/npm run serve  
-    项目将在打包完成后自动在浏览器上运行
+    回到根目录运行  nodemon/node server.js
+    进入到client运行  npm start/npm run serve  
+    项目将在热重载完成后在浏览器上运行
     后端端口号 5000
     前端端口号 8080
     
 # 项目概述
 
     本项目是一个前后端分离的人力资源管理系统，项目采用 Node.js + Vue + MongoDB 开发，不足之处请多多包涵。
-    
+
+
 # 项目技术栈
 
  前端技术栈
@@ -59,9 +60,15 @@ npm start
     
 # 参考资料
 
-    1.[Vue.js](https://cn.vuejs.org/index.html)
-    2.[Node.js](http://nodejs.cn/api/)
-    3.[MongoDB](https://www.runoob.com/mongodb/mongodb-tutorial.html)
+   1.[Vue.js](https://cn.vuejs.org/index.html)
+   
+   2.[Node.js](http://nodejs.cn/api/)
+   
+   3.[Express](https://www.expressjs.com.cn/4x/api.html)
+   
+   4.[MongoDB](https://www.runoob.com/mongodb/mongodb-tutorial.html)
+   
+   5.[socket.io](https://socket.io/get-started/chat/)
     
 # License
     

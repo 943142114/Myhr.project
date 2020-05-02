@@ -14,6 +14,7 @@ import Peomon from "../views/Peomon";
 import Monthend from "../views/Monthend";
 import Char from "../views/Char";
 import Setcompetence from "../views/Setcompetence";
+import Systemmessages from "../views/Systemmessages";
 
 
 
@@ -73,6 +74,10 @@ const routes = [
                 path:'/Setcompetence',
                 name:'Setcompetence',
                 component:Setcompetence
+            },{
+                path:'/Systemmessages',
+                name:'Systemmessages',
+                component:Systemmessages
             }
         ]
     },
