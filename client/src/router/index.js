@@ -15,6 +15,9 @@ import Monthend from "../views/Monthend";
 import Char from "../views/Char";
 import Setcompetence from "../views/Setcompetence";
 import Systemmessages from "../views/Systemmessages";
+import Peopleintegral from "../views/Peopleintegral";
+import HrStatistics from "../views/HrStatistics";
+import comprehensiveStatistics from "../views/comprehensiveStatistics";
 
 
 
@@ -78,6 +81,18 @@ const routes = [
                 path:'/Systemmessages',
                 name:'Systemmessages',
                 component:Systemmessages
+            },{
+                path:'/Peopleintegral',
+                name:'Peopleintegral',
+                component:Peopleintegral
+            },{
+                path:'/HrStatistics',
+                name:'HrStatistics',
+                component:HrStatistics
+            },{
+                path:'/comprehensiveStatistics',
+                name:'comprehensiveStatistics',
+                component:comprehensiveStatistics
             }
         ]
     },

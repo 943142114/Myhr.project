@@ -2,6 +2,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var passport = require('passport')
+var multer = require('multer')
 var log4js = require('log4js')
 var logger = log4js.getLogger();
 var app = express();
@@ -24,13 +25,14 @@ var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://localhost/Hrdata';
 
 
+const upload = multer({ dest: 'uploads/' });
 logger.level = 'debug';
 logger.debug("Some debug messages");
 
 
 var allchat = []
 io.on('connection', function(socket){
-    console.log(socket.id + '已经连接!');
+    // console.log(socket.id + '已经连接!');
         socket.emit('notcie','测试消息')
     var the_id = socket.id
     allchat.push(the_id)
@@ -67,6 +69,7 @@ io.on('connection', function(socket){
 
 
 
+app.use(upload.single('file'));
 // DB config
 // var db = require('./config/keys').mongoURI;
 
@@ -96,6 +99,13 @@ app.use('/api/profiles',profiles);
 app.use('/api/accounts',accounts);
 app.use('/api/monthends',monthends)
 app.use('/api/messages',messages)
+
+//上传文件测试
+// app.post('/api/upload', (req, res)=>{
+//     console.log(req.file);//获取到的文件
+//     //做些其他事情
+//     req.file.originalname = req.file.filename
+// })
 
 
 

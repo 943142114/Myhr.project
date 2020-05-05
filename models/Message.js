@@ -16,6 +16,4 @@ var AllaccountSchema = new Schema({
 });
 
 
-
-
 module.exports = Message = mongoose.model('setMessage', AllaccountSchema);

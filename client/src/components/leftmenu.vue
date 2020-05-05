@@ -93,13 +93,18 @@
                         name:'统计管理',
                         path:'Statistics',
                         children:[{
-                            path:'FundList',
+                            path:'comprehensiveStatistics',
                             name:'综合信息统计'
-                        },{
-                            path:'zhangtao',
-                            name:'人事信息统计'
-                        },{
-                            path:'zhangtao',
+                        },
+
+                        //     {
+                        //     path:'HrStatistics',
+                        //     name:'人事信息统计'
+                        // },
+
+
+                            {
+                            path:'Peopleintegral',
                             name:'员工积分统计'
                         }]
                     },

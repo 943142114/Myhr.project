@@ -40,7 +40,9 @@ router.post('/add', passport.authenticate("jwt", {session: false}), (req, res) =
     if (req.body.formofemployment) profilefields.formofemployment = req.body.formofemployment;
     if (req.body.jiangjin) profilefields.jiangjin = req.body.jiangjin;
     if (req.body.trafficlsubsidy) profilefields.trafficlsubsidy = req.body.trafficlsubsidy;
-    if (req.body.accumulationfund) profilefields.accumulationfund =req.body.accumulationfund
+    if (req.body.accumulationfund) profilefields.accumulationfund =req.body.accumulationfund;
+    if (req.body.employeepoints) profilefields.employeepoints = req.body.employeepoints;
+    if (req.body.employeepointsmark) profilefields.employeepointsmark = req.body.employeepointsmark;
 
 
     new Profile(profilefields).save().then(profile =>{
@@ -110,6 +112,8 @@ router.post('/edit/:id', passport.authenticate("jwt", {session: false}), (req, r
     if (req.body.jiangjin) profilefields.jiangjin = req.body.jiangjin;
     if (req.body.trafficlsubsidy) profilefields.trafficlsubsidy = req.body.trafficlsubsidy;
     if (req.body.accumulationfund) profilefields.accumulationfund =req.body.accumulationfund;
+    if (req.body.employeepoints) profilefields.employeepoints = req.body.employeepoints;
+    if (req.body.employeepointsmark) profilefields.employeepointsmark = req.body.employeepointsmark;
 
 
 

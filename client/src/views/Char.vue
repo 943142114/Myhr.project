@@ -79,11 +79,11 @@
             //我就是那个新名字  用来接收服务端发来的东西
             socket.on('fad',ms =>{
                     this.msg_list.push(ms)
-                    console.log(ms)
+                    // console.log(ms)
             }),
                 socket.on('his',ms =>{
                     this.chathis = ms
-                    console.log(this.chathis)
+                    // console.log(this.chathis)
                 }),
 
             socket.on('onlie',obj=> {

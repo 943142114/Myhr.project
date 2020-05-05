@@ -1,5 +1,5 @@
 <template>
-    <div class="fillcontain ">
+    <div class="fillcontain">
 
         <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;">
             <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
