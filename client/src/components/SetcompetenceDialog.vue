@@ -27,10 +27,20 @@
 
 
 
-                    <el-form-item prop="identity" label="权限：">
-                        <el-input type="identity" v-model="formData.identity"></el-input>
-                    </el-form-item>
+<!--                    <el-form-item prop="identity" label="权限：">-->
+<!--                        <el-input type="identity" v-model="formData.identity"></el-input>-->
+<!--                    </el-form-item>-->
 
+                    <el-form-item label="分配权限：">
+                        <el-select v-model="formData.identity" placeholder="权限">
+                            <el-option
+                                    v-for="(formtype, index) in format_identity_list"
+                                    :key="index"
+                                    :label="formtype"
+                                    :value="formtype"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
 
 
 
@@ -50,14 +60,11 @@
         name: "SetcompetenceDialog",
         data(){
             return{
-                // format_type_list: [
-                // '提现',
-                // '提现手续费',
-                // '充值',
-                // '优惠券',
-                // '充值礼券',
-                // '转账'
-                // ],
+                format_identity_list: [
+                'admin',
+                'manager',
+                'employee'
+                ],
                 form_rules:{
                     identity:[{required: true, message: "权限不能为空！", trigger: "blur"}
                     ]

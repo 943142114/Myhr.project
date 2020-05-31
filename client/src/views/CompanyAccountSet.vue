@@ -3,7 +3,11 @@
     <div class="fillcontain ">
         <div>
 
-
+            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: 'home' }">工资管理</el-breadcrumb-item>
+                <el-breadcrumb-item >企业账套</el-breadcrumb-item>
+            </el-breadcrumb>
             <div v-if="user.identity == 'employee'">
                 <el-button
                         plain
@@ -14,11 +18,7 @@
             </div>
 
 
-            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;">
-                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{ path: 'home' }">工资管理</el-breadcrumb-item>
-                <el-breadcrumb-item >企业账套</el-breadcrumb-item>
-            </el-breadcrumb>
+
 
             <el-from :inline="true" ref="add_data" class="elfrom1" v-if="user.identity == 'manger' && 'admin' ">
 <!--                <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width:300px;" clearable></el-input>-->

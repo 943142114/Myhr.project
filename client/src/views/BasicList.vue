@@ -1,17 +1,27 @@
 <template>
 <!--    高级资料-->
     <div class="fillcontain ">
+        <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: 'home' }">员工资料</el-breadcrumb-item>
+            <el-breadcrumb-item >高级资料</el-breadcrumb-item>
+        </el-breadcrumb>
+
+        <div v-if="user.identity == 'employee'">
+            <el-button
+                    plain
+                    @click="open1"
+            >
+                您无权访问此页面
+            </el-button>
+        </div>
         <div>
 
-            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;">
-                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{ path: 'home' }">员工资料</el-breadcrumb-item>
-                <el-breadcrumb-item >高级资料</el-breadcrumb-item>
-            </el-breadcrumb>
 
 
-            <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;" clearable></el-input>
-            <el-for-item class="btnleft">
+
+            <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;" clearable v-if="user.identity == 'admin' && 'manager'"></el-input>
+            <el-for-item class="btnleft" v-if="user.identity == 'admin' && 'manager'">
                 <el-button type="primary" size="big" icon="search" @click="handleSearchname()">
                     姓名筛选
                 </el-button>
@@ -23,7 +33,7 @@
 <!--                </el-for-item>-->
             </el-from>
         </div>
-        <div class="table_container">
+        <div class="table_container" v-if="user.identity == 'admin' && 'manager'">
             <div class="kongbai"></div>
             <el-table
                     v-if="tableData.length > 0"
@@ -202,6 +212,14 @@
 
                     })
                     .catch(err=>console.log(err))
+            },
+            open1() {
+                const h = this.$createElement;
+
+                this.$notify({
+                    title: '您没有权限',
+                    message: h('i', { style: 'color: teal'}, '联系管理员，即可查看本页内容')
+                });
             },
 
             //编辑

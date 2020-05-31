@@ -28,7 +28,7 @@
                     </el-form-item>
 
                     <el-form-item label="聘用形式：">
-                        <el-select v-model="formData.formofemployment" placeholder="聘用形式">
+                        <el-select v-model="formData.education" placeholder="聘用形式">
                             <el-option
                                     v-for="(formtype, index) in format_formofemployment_list"
                                     :key="index"

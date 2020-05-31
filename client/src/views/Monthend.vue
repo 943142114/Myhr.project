@@ -22,6 +22,7 @@
                             size="big"
                             icon="view"
                             @click="onAddMoney()"
+                            v-if="user.identity=='admin'&&'manager'"
                     >添加</el-button>
                 </el-form-item>
             </el-form>

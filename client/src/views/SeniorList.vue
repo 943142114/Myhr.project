@@ -1,6 +1,11 @@
 <template>
     <div class="fillcontain">
         <div>
+            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;" >
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: 'home' }">员工资料</el-breadcrumb-item>
+                <el-breadcrumb-item >其他资料</el-breadcrumb-item>
+            </el-breadcrumb>
         <div v-if="user.identity == 'employee'">
             <el-button
                     plain
@@ -10,11 +15,7 @@
             </el-button>
         </div>
 
-            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;" >
-                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                <el-breadcrumb-item :to="{ path: 'home' }">员工资料</el-breadcrumb-item>
-                <el-breadcrumb-item >其他资料</el-breadcrumb-item>
-            </el-breadcrumb>
+
 
             </el-input>
                     <el-input placeholder="按照部门筛选"
@@ -82,7 +83,7 @@
                 </el-table-column>
 
                 <el-table-column
-                        prop="formofemployment"
+                        prop="education"
                         label="聘用形式"
                         align="center"
                         width="190">
@@ -183,7 +184,8 @@
                     internshiptime:'',
                     workertime:'',
                     department:'',
-                    formofemployment:''
+                    formofemployment:'',
+                    education:''
                 },
                 paginations:{
                     page_index:1, //当前位于哪页
@@ -248,7 +250,8 @@
                     internshiptime:row.internshiptime,
                     workertime:row.workertime,
                     department:row.department,
-                    formofemployment:row.formofemployment
+                    formofemployment:row.formofemployment,
+                    education:row.education
                 }
             },
 
@@ -276,7 +279,8 @@
                     internshiptime:'',
                     workertime:'',
                     department:'',
-                    formofemployment:''
+                    formofemployment:'',
+                    education:''
                 }
             },
 

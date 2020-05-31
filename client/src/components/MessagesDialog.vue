@@ -11,6 +11,7 @@
                 <el-form
                         ref="form"
                         :model="formData"
+                        :rules="form_rules"
                         label-width="120px"
                         style="margin:10px;width:auto;"
                 >
@@ -48,6 +49,20 @@
         name: "MonthendDialog",
         data(){
             return{
+                form_rules:{
+                    allhrmessages:[{required: true, message: "公告内容不能为空！", trigger: "blur"}
+                    ],
+                    staffname:[{required: true, message: "姓名不能为空！", trigger: "blur"}
+                    ],
+                    staffsex:[{required: true, message: "性别不能为空！", trigger: "blur"}
+                    ],
+                    staffBirthday:[{required: true, message: "出生日期不能为空！", trigger: "blur"}
+                    ],
+                    nation:[{required: true, message: "民族不能为空！", trigger: "blur"}
+                    ],
+                    phonenumber:[{required: true, message: "联系电话不能为空！", trigger: "blur"}
+                    ]
+                }
             };
         },
         props:{

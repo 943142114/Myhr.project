@@ -117,9 +117,6 @@
                         },{
                             path:'Setcompetence',
                             name:'权限管理'
-                        },{
-                            path:'infoshow',
-                            name:'操作管理'
                         }]
                     }
                 ]
