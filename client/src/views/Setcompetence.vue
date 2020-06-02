@@ -18,10 +18,17 @@
             </el-button>
         </div>
 
-
+        <div v-if="user.identity == 'manager'">
+            <el-button
+                    plain
+                    @click="open1"
+            >
+                您无权访问此页面
+            </el-button>
+        </div>
 
         <div>
-            <el-from :inline="true" ref="add_data" class="elfrom1" v-if="user.identity == 'admin' && 'manager'">
+            <el-from :inline="true" ref="add_data" class="elfrom1" v-if="user.identity == 'admin'">
                 <el-input v-model="search_people.speople" placeholder="输入用户名进行筛选" style="width:300px;" clearable></el-input>
                 <el-for-item class="btnleft">
                     <el-button type="primary" size="big" icon="search" @click="handleSearchpeople()">
@@ -32,7 +39,7 @@
             </el-from>
         </div>
         <!--        基本资料-->
-        <div class="table_container" v-if="user.identity == 'admin' && 'manager'">
+        <div class="table_container" v-if="user.identity == 'admin'">
             <div class="kongbai"></div>
             <el-table
                     v-if="tableData.length > 0"
@@ -92,13 +99,13 @@
                                 type="warning"
                                 size="small"
                                 icon="edit"
-                                v-if="user.identity=='admin'&&'manager'"
+                                v-if="user.identity=='admin'"
                                 @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <el-button
                                 size="small"
                                 type="danger"
                                 icon="delete"
-                                v-if="user.identity=='admin'&&'manager'"
+                                v-if="user.identity=='admin'"
                                 @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>

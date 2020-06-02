@@ -4,7 +4,9 @@
             <el-col :span="6" class='logo-container'>
                 <span class='title'>人力资源管理系统</span>
             </el-col>
+
             <el-col :span='6' class="user">
+
                 <div class="userinfo">
                     <!--                    <img :src="" class='avatar' alt="">-->
                     <img :src="user.avatar" class='avatar' alt="">
@@ -19,6 +21,7 @@
                             </span>
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item command='info'>个人信息</el-dropdown-item>
+                                <el-dropdown-item command='message'>公告消息</el-dropdown-item>
                                 <el-dropdown-item command='logout'>退出</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
@@ -49,12 +52,17 @@
                     case "logout":
                         this.logout();
                         break;
+                    case "message":
+                        this.Systemmessage();
+                        break;
                 }
             },
             showinfolist() {
                 //个人信息
                 this.$router.push('/infoshow')
-
+            },
+            Systemmessage(){
+                this.$router.push('/Systemmessages')
             },
             logout() {
                 //退出
@@ -91,7 +99,12 @@
         vertical-align: middle;
         display: inline-block;
     }
+    .messages{
+        margin-top:20px;
+        margin-right: 20px;
+        float: right;
 
+    }
     .title {
         vertical-align: middle;
         font-size: 22px;

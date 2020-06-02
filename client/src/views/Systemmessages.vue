@@ -34,7 +34,7 @@
 
 
         <!--        基本资料-->
-        <div class="table_container" v-if="user.identity == 'admin'">
+        <div class="table_container" v-if="user.identity != 'employee'">
             <el-table
                     v-if="tableData.length > 0"
                     :data="tableData"
@@ -75,11 +75,19 @@
                         width="200"
                         label="操作">
                     <template slot-scope="scope">
+
                         <el-button
                                 size="small"
                                 type="danger"
                                 icon="delete"
-                                v-if="user.identity=='admin'&&'manager'"
+                                v-if="user.identity=='manager'"
+                                @click="open1">联系管理员删除</el-button>
+
+                        <el-button
+                                size="small"
+                                type="danger"
+                                icon="delete"
+                                v-if="user.identity=='admin'"
                                 @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
@@ -201,7 +209,14 @@
                     })
                     .catch(err => console.log(err))
             },
+            open1() {
+                const h = this.$createElement;
 
+                this.$notify({
+                    title: '您没有权限',
+                    message: h('i', { style: 'color: teal'}, '联系管理员删除系统公告')
+                });
+            },
             //编辑
             handleEdit(index, row) {
                 //编辑

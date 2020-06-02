@@ -87,13 +87,13 @@
                                 type="warning"
                                 size="small"
                                 icon="edit"
-                                v-if="user.identity=='admin'&&'manager'"
+                                v-if="user.identity != 'employee'"
                                 @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <el-button
                                 size="small"
                                 type="danger"
                                 icon="delete"
-                                v-if="user.identity=='admin'&&'manager'"
+                                v-if="user.identity != 'employee'"
                                 @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>

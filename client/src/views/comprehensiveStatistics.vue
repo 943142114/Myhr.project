@@ -21,8 +21,8 @@
 
 
 
-                <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;" clearable v-if="user.identity=='admin'&&'manager'"></el-input>
-                <el-for-item class="btnleft" v-if="user.identity=='admin'&&'manager'">
+                <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width: 300px;" clearable v-if="user.identity != 'employee'"></el-input>
+                <el-for-item class="btnleft" v-if="user.identity != 'employee'">
                     <el-button type="primary" size="big" icon="search" @click="handleSearchname()">
                         姓名筛选
                     </el-button>
@@ -30,7 +30,7 @@
 
 
                 <el-for-item class="btnRight">
-                    <el-button type="primary" size="big" icon="view" v-if="user.identity=='admin'&&'manager'" @click="handleAdd()">
+                    <el-button type="primary" size="big" icon="view" v-if="user.identity != 'employee'" @click="handleAdd()">
                         添加
                     </el-button>
                 </el-for-item>
@@ -38,7 +38,7 @@
         </div>
 
         <!--        基本资料-->
-        <div class="table_container" v-if="user.identity=='admin'&&'manager'">
+        <div class="table_container" v-if="user.identity != 'employee'">
             <div class="kongbai"></div>
             <el-table
                     v-if="tableData.length > 0"
@@ -198,13 +198,13 @@
                                 type="warning"
                                 size="small"
                                 icon="edit"
-                                v-if="user.identity=='admin'&&'manager'"
+                                v-if="user.identity != 'employee'"
                                 @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <el-button
                                 size="small"
                                 type="danger"
                                 icon="delete"
-                                v-if="user.identity=='admin'&&'manager'"
+                                v-if="user.identity != 'employee'"
                                 @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                     </template>
                 </el-table-column>

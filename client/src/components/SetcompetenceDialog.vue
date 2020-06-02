@@ -31,6 +31,10 @@
 <!--                        <el-input type="identity" v-model="formData.identity"></el-input>-->
 <!--                    </el-form-item>-->
 
+                    <el-form-item prop="name" label="用户名：" style="width:37.5%">
+                        <el-input type="name" v-model="formData.name"></el-input>
+                    </el-form-item>
+
                     <el-form-item label="分配权限：">
                         <el-select v-model="formData.identity" placeholder="权限">
                             <el-option
