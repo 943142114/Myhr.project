@@ -3,6 +3,11 @@
 
 
     <div class="fillcontain " >
+        <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;">
+            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: 'home' }">系统管理</el-breadcrumb-item>
+            <el-breadcrumb-item >权限管理</el-breadcrumb-item>
+        </el-breadcrumb>
 
         <div v-if="user.identity == 'employee'">
             <el-button
@@ -12,11 +17,7 @@
                 您无权访问此页面
             </el-button>
         </div>
-        <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 20px;" v-if="user.identity == 'admin' && 'manager'">
-            <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: 'home' }">系统管理</el-breadcrumb-item>
-            <el-breadcrumb-item >权限管理</el-breadcrumb-item>
-        </el-breadcrumb>
+
 
 
         <div>

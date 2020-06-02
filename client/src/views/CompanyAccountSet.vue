@@ -20,7 +20,7 @@
 
 
 
-            <el-from :inline="true" ref="add_data" class="elfrom1" v-if="user.identity == 'manger' && 'admin' ">
+<!--            <el-from :inline="true" ref="add_data" class="elfrom1" v-if="user.identity == 'manger' && 'admin' ">-->
 <!--                <el-input v-model="search_name.sname" placeholder="按照姓名筛选" style="width:300px;" clearable></el-input>-->
 <!--                <el-for-item class="btnleft">-->
 <!--                    <el-button type="primary" size="big" icon="search" @click="handleSearchname()">-->
@@ -28,8 +28,8 @@
 <!--                    </el-button>-->
 <!--                </el-for-item>-->
 
-                <el-input v-model="search_people.speople" placeholder="按照经办人筛选" style="width:300px;" clearable></el-input>
-                <el-for-item class="btnleft">
+                <el-input v-model="search_people.speople" placeholder="按照经办人筛选" style="width:300px;" clearable v-if="user.identity=='admin'&&'manager'"></el-input>
+                <el-for-item class="btnleft" v-if="user.identity=='admin'&&'manager'">
                     <el-button type="primary" size="big" icon="search" @click="handleSearchpeople()">
                         经办人筛选
                     </el-button>
@@ -41,7 +41,7 @@
                         添加
                     </el-button>
                 </el-for-item>
-            </el-from>
+<!--            </el-from>-->
         </div>
 
 

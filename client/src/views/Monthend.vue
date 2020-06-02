@@ -82,6 +82,12 @@
                                 type="warning"
                                 size="small"
                                 icon="edit"
+                                v-if="user.identity=='employee'"
+                                @click="open1">无权操作</el-button>
+                        <el-button
+                                type="warning"
+                                size="small"
+                                icon="edit"
                                 v-if="user.identity=='admin'&&'manager'"
                                 @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                         <el-button
@@ -213,6 +219,15 @@
 
                     })
                     .catch(err => console.log(err))
+            },
+
+            open1() {
+                const h = this.$createElement;
+
+                this.$notify({
+                    title: '您没有权限',
+                    message: h('i', { style: 'color: teal'}, '请联系管理员，稍后进行重试')
+                });
             },
 
             //编辑
